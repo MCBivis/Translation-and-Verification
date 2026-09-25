@@ -1,0 +1,390 @@
+[
+  {
+    "name": "empty",
+    "input": "",
+    "expected": [],
+    "actual": [],
+    "status": "PASS"
+  },
+  {
+    "name": "spaces",
+    "input": " \t  \r\n",
+    "expected": [],
+    "actual": [],
+    "status": "PASS"
+  },
+  {
+    "name": "zero",
+    "input": "0",
+    "expected": [
+      [
+        "INT",
+        "0"
+      ]
+    ],
+    "actual": [
+      [
+        "INT",
+        "0"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "leading_zero",
+    "input": "01",
+    "expected": [
+      [
+        "INT",
+        "0"
+      ],
+      [
+        "INT",
+        "1"
+      ]
+    ],
+    "actual": [
+      [
+        "INT",
+        "0"
+      ],
+      [
+        "INT",
+        "1"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "zero_and_number",
+    "input": "01002345",
+    "expected": [
+      [
+        "INT",
+        "0"
+      ],
+      [
+        "INT",
+        "1002345"
+      ]
+    ],
+    "actual": [
+      [
+        "INT",
+        "0"
+      ],
+      [
+        "INT",
+        "1002345"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "identifier_underscore",
+    "input": "_abc A_1",
+    "expected": [
+      [
+        "IDENT",
+        "_abc"
+      ],
+      [
+        "IDENT",
+        "A_1"
+      ]
+    ],
+    "actual": [
+      [
+        "IDENT",
+        "_abc"
+      ],
+      [
+        "IDENT",
+        "A_1"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "keywords",
+    "input": "function returns while if else assert assume invariant length",
+    "expected": [
+      [
+        "KW_FUNCTION",
+        "function"
+      ],
+      [
+        "KW_RETURNS",
+        "returns"
+      ],
+      [
+        "KW_WHILE",
+        "while"
+      ],
+      [
+        "KW_IF",
+        "if"
+      ],
+      [
+        "KW_ELSE",
+        "else"
+      ],
+      [
+        "KW_ASSERT",
+        "assert"
+      ],
+      [
+        "KW_ASSUME",
+        "assume"
+      ],
+      [
+        "KW_INVARIANT",
+        "invariant"
+      ],
+      [
+        "KW_LENGTH",
+        "length"
+      ]
+    ],
+    "actual": [
+      [
+        "KW_FUNCTION",
+        "function"
+      ],
+      [
+        "KW_RETURNS",
+        "returns"
+      ],
+      [
+        "KW_WHILE",
+        "while"
+      ],
+      [
+        "KW_IF",
+        "if"
+      ],
+      [
+        "KW_ELSE",
+        "else"
+      ],
+      [
+        "KW_ASSERT",
+        "assert"
+      ],
+      [
+        "KW_ASSUME",
+        "assume"
+      ],
+      [
+        "KW_INVARIANT",
+        "invariant"
+      ],
+      [
+        "KW_LENGTH",
+        "length"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "delimiters",
+    "input": "()[]{},;",
+    "expected": [
+      [
+        "LPAREN",
+        "("
+      ],
+      [
+        "RPAREN",
+        ")"
+      ],
+      [
+        "LBRACKET",
+        "["
+      ],
+      [
+        "RBRACKET",
+        "]"
+      ],
+      [
+        "LBRACE",
+        "{"
+      ],
+      [
+        "RBRACE",
+        "}"
+      ],
+      [
+        "COMMA",
+        ","
+      ],
+      [
+        "SEMICOLON",
+        ";"
+      ]
+    ],
+    "actual": [
+      [
+        "LPAREN",
+        "("
+      ],
+      [
+        "RPAREN",
+        ")"
+      ],
+      [
+        "LBRACKET",
+        "["
+      ],
+      [
+        "RBRACKET",
+        "]"
+      ],
+      [
+        "LBRACE",
+        "{"
+      ],
+      [
+        "RBRACE",
+        "}"
+      ],
+      [
+        "COMMA",
+        ","
+      ],
+      [
+        "SEMICOLON",
+        ";"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "operators",
+    "input": "+ - * / == != <= >= < > =",
+    "expected": [
+      [
+        "PLUS",
+        "+"
+      ],
+      [
+        "MINUS",
+        "-"
+      ],
+      [
+        "STAR",
+        "*"
+      ],
+      [
+        "SLASH",
+        "/"
+      ],
+      [
+        "EQ",
+        "=="
+      ],
+      [
+        "NE",
+        "!="
+      ],
+      [
+        "LE",
+        "<="
+      ],
+      [
+        "GE",
+        ">="
+      ],
+      [
+        "LT",
+        "<"
+      ],
+      [
+        "GT",
+        ">"
+      ],
+      [
+        "ASSIGN",
+        "="
+      ]
+    ],
+    "actual": [
+      [
+        "PLUS",
+        "+"
+      ],
+      [
+        "MINUS",
+        "-"
+      ],
+      [
+        "STAR",
+        "*"
+      ],
+      [
+        "SLASH",
+        "/"
+      ],
+      [
+        "EQ",
+        "=="
+      ],
+      [
+        "NE",
+        "!="
+      ],
+      [
+        "LE",
+        "<="
+      ],
+      [
+        "GE",
+        ">="
+      ],
+      [
+        "LT",
+        "<"
+      ],
+      [
+        "GT",
+        ">"
+      ],
+      [
+        "ASSIGN",
+        "="
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "comment",
+    "input": "// hello world\r\nx",
+    "expected": [
+      [
+        "IDENT",
+        "x"
+      ]
+    ],
+    "actual": [
+      [
+        "IDENT",
+        "x"
+      ]
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "non_ascii",
+    "input": "привет",
+    "expected": null,
+    "actual": "ERROR: non-ASCII character at 0: 'п'",
+    "status": "PASS"
+  },
+  {
+    "name": "unknown_ascii",
+    "input": "@",
+    "expected": null,
+    "actual": "ERROR: lexical error at 0: '@'",
+    "status": "PASS"
+  }
+]

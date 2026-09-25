@@ -1,0 +1,49 @@
+# Funny HW1 token regular expressions
+# Priority is top-to-bottom.
+
+KW_FUNCTION   = function
+KW_RETURNS    = returns
+KW_REQUIRES   = requires
+KW_ENSURES    = ensures
+KW_USES       = uses
+KW_IF         = if
+KW_ELSE       = else
+KW_WHILE      = while
+KW_INVARIANT  = invariant
+KW_ASSERT     = assert
+KW_ASSUME     = assume
+KW_FORALL     = forall
+KW_EXISTS     = exists
+KW_TRUE       = true
+KW_FALSE      = false
+KW_AND        = and
+KW_OR         = or
+KW_NOT        = not
+KW_INT        = int
+KW_LENGTH     = length
+
+INT           = (0|[1-9][0-9]*)
+IDENT         = [A-Za-z_][A-Za-z0-9_]*
+WS            = [ \t\r\n]+              # skip
+COMMENT       = //[^\r\n]*              # skip
+
+LPAREN        = \(
+RPAREN        = \)
+LBRACKET      = \[
+RBRACKET      = \]
+LBRACE        = \{
+RBRACE        = \}
+COMMA         = ,
+SEMICOLON     = ;
+
+PLUS          = \+
+MINUS         = -
+STAR          = \*
+SLASH         = /
+EQ            = ==
+NE            = !=
+LE            = <=
+GE            = >=
+LT            = <
+GT            = >
+ASSIGN        = =
