@@ -476,6 +476,7 @@ TOKEN_SPECS = (
         TokenSpec("LBRACE", r"\{"),
         TokenSpec("RBRACE", r"\}"),
         TokenSpec("COMMA", r","),
+        TokenSpec("COLON", r":"),
         TokenSpec("SEMICOLON", r";"),
         TokenSpec("PLUS", r"\+"),
         TokenSpec("MINUS", r"-"),
@@ -542,7 +543,6 @@ def main():
     report = run_builtin_tests(minimized)
     with open(args.tests, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
-
     print(f"NFA states: {len(nfa.states)}")
     print(f"DFA states before minimization: {len(dfa.states)}")
     print(f"DFA states after Hopcroft minimization: {len(minimized.states)}")
@@ -550,7 +550,6 @@ def main():
     print(f"Tests: {sum(x['status']=='PASS' for x in report)}/{len(report)} PASS")
     print(f"Exported: {args.export}")
     print(f"Test report: {args.tests}")
-
 
 if __name__ == "__main__":
     main()
