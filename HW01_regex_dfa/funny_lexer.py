@@ -279,6 +279,14 @@ class DFA:
 
             end, (name, skip) = last
             lexeme = text[i:end]
+
+            if name == "INT" and lexeme == "0":
+                nxt = text[end] if end < len(text) else None
+                if nxt is not None and nxt.isdigit():
+                    raise ValueError(
+                        f"leading zero in number at {i}: {lexeme + nxt!r}"
+                    )
+
             if not skip:
                 result.append((name, lexeme))
             i = end
@@ -498,8 +506,8 @@ def run_builtin_tests(dfa: DFA):
         ("empty", "", []),
         ("spaces", " \t  \r\n", []),
         ("zero", "0", [("INT", "0")]),
-        ("leading_zero", "01", [("INT", "0"), ("INT", "1")]),
-        ("zero_and_number", "01002345", [("INT", "0"), ("INT", "1002345")]),
+        ("leading_zero", "01", None),
+        ("zero_and_number", "01002345", None),
         ("identifier_underscore", "_abc A_1", [("IDENT", "_abc"), ("IDENT", "A_1")]),
         ("keywords", "function returns while if else assert assume invariant length",
          [(f"KW_{w.upper()}", w) for w in

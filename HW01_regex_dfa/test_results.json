@@ -33,51 +33,15 @@
   {
     "name": "leading_zero",
     "input": "01",
-    "expected": [
-      [
-        "INT",
-        "0"
-      ],
-      [
-        "INT",
-        "1"
-      ]
-    ],
-    "actual": [
-      [
-        "INT",
-        "0"
-      ],
-      [
-        "INT",
-        "1"
-      ]
-    ],
+    "expected": null,
+    "actual": "ERROR: leading zero in number at 0: '01'",
     "status": "PASS"
   },
   {
     "name": "zero_and_number",
     "input": "01002345",
-    "expected": [
-      [
-        "INT",
-        "0"
-      ],
-      [
-        "INT",
-        "1002345"
-      ]
-    ],
-    "actual": [
-      [
-        "INT",
-        "0"
-      ],
-      [
-        "INT",
-        "1002345"
-      ]
-    ],
+    "expected": null,
+    "actual": "ERROR: leading zero in number at 0: '01'",
     "status": "PASS"
   },
   {
