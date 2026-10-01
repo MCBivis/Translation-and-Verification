@@ -34,14 +34,14 @@
     "name": "leading_zero",
     "input": "01",
     "expected": null,
-    "actual": "ERROR: leading zero in number at 0: '01'",
+    "actual": "ERROR: leading zero in number at 1:1: '01'",
     "status": "PASS"
   },
   {
     "name": "zero_and_number",
     "input": "01002345",
     "expected": null,
-    "actual": "ERROR: leading zero in number at 0: '01'",
+    "actual": "ERROR: leading zero in number at 1:1: '01'",
     "status": "PASS"
   },
   {
@@ -341,14 +341,14 @@
     "name": "non_ascii",
     "input": "привет",
     "expected": null,
-    "actual": "ERROR: non-ASCII character at 0: 'п'",
+    "actual": "ERROR: non-ASCII character at 1:1: 'п'",
     "status": "PASS"
   },
   {
     "name": "unknown_ascii",
     "input": "@",
     "expected": null,
-    "actual": "ERROR: lexical error at 0: '@'",
+    "actual": "ERROR: lexical error at 1:1: '@'",
     "status": "PASS"
   }
 ]

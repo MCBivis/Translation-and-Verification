@@ -231,6 +231,18 @@ class TokenSpec:
     regex: str
     skip: bool = False
 
+@dataclass(frozen=True)
+class Token:
+    type: str
+    lexeme: str
+    line: int
+    column: int
+
+    def __str__(self):
+        return (
+            f"{self.type}({self.lexeme!r}) "
+            f"at {self.line}:{self.column}"
+        )
 
 @dataclass
 class DFA:
@@ -259,9 +271,14 @@ class DFA:
     def tokenize(self, text: str):
         result = []
         i = 0
+        line = 1
+        column = 1
+
         while i < len(text):
             if ord(text[i]) >= 128:
-                raise ValueError(f"non-ASCII character at {i}: {text[i]!r}")
+                raise ValueError(
+                    f"non-ASCII character at {line}:{column}: {text[i]!r}"
+                )
 
             state = self.start
             last = None
@@ -275,7 +292,9 @@ class DFA:
                 j += 1
 
             if last is None:
-                raise ValueError(f"lexical error at {i}: {text[i]!r}")
+                raise ValueError(
+                    f"lexical error at {line}:{column}: {text[i]!r}"
+                )
 
             end, (name, skip) = last
             lexeme = text[i:end]
@@ -284,11 +303,30 @@ class DFA:
                 nxt = text[end] if end < len(text) else None
                 if nxt is not None and nxt.isdigit():
                     raise ValueError(
-                        f"leading zero in number at {i}: {lexeme + nxt!r}"
+                        f"leading zero in number at {line}:{column}: "
+                        f"{lexeme + nxt!r}"
                     )
 
+            token_line = line
+            token_column = column
+
             if not skip:
-                result.append((name, lexeme))
+                result.append(
+                    Token(
+                        type=name,
+                        lexeme=lexeme,
+                        line=token_line,
+                        column=token_column,
+                    )
+                )
+
+            for ch in lexeme:
+                if ch == "\n":
+                    line += 1
+                    column = 1
+                else:
+                    column += 1
+
             i = end
         return result
 
@@ -500,6 +538,8 @@ TOKEN_SPECS = (
     ]
 )
 
+def token_pairs(tokens: list[Token]):
+    return [(token.type, token.lexeme) for token in tokens]
 
 def run_builtin_tests(dfa: DFA):
     tests = [
@@ -526,7 +566,8 @@ def run_builtin_tests(dfa: DFA):
     report = []
     for name, text, expected in tests:
         try:
-            actual = dfa.tokenize(text)
+            actual_tokens = dfa.tokenize(text)
+            actual = token_pairs(actual_tokens)
             ok = expected is not None and actual == expected
             status = "PASS" if ok else "FAIL"
             report.append({"name": name, "input": text, "expected": expected,
@@ -536,7 +577,6 @@ def run_builtin_tests(dfa: DFA):
             report.append({"name": name, "input": text, "expected": expected,
                            "actual": f"ERROR: {e}", "status": "PASS" if ok else "FAIL"})
     return report
-
 
 def main():
     import argparse
