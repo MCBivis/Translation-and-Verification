@@ -1,0 +1,175 @@
+#Программа и функции
+program
+    ::= function*
+
+function
+    ::= IDENT "(" parameters? ")"
+        requires_clause?
+        "returns" return_variables
+        ensures_clause?
+        uses_clause?
+        statement
+
+parameters
+    ::= variable_def ("," variable_def)*
+
+return_variables
+    ::= variable_def ("," variable_def)*
+
+requires_clause
+    ::= "requires" predicate
+
+ensures_clause
+    ::= "ensures" predicate
+
+uses_clause
+    ::= "uses" local_var_def ("," local_var_def)*
+
+variable_def
+    ::= IDENT ":" variable_type
+
+local_var_def
+    ::= IDENT (":" variable_type)?
+
+variable_type
+    ::= "int"
+    | "int" "[" "]"
+
+#Операторы
+statement
+    ::= assignment
+     | conditional
+     | loop
+     | block
+     | assert_statement
+     | assume_statement
+
+block
+    ::= "{" statement* "}"
+
+conditional
+    ::= "if" "(" condition ")" statement
+        ("else" statement)?
+
+loop
+    ::= "while" "(" condition ")"
+        ("invariant" predicate)?
+        statement
+
+assert_statement
+    ::= "assert" predicate ";"
+
+assume_statement
+    ::= "assume" predicate ";"
+
+#Присваивания
+assignment
+    ::= tuple_assignment
+     | target_assignment
+
+tuple_assignment
+    ::= IDENT "," IDENT ("," IDENT)* "=" function_call ";"
+
+target_assignment
+    ::= lvalue "=" expr ";"
+
+lvalue
+    ::= IDENT
+     | IDENT "[" expr "]"
+
+#Выражения
+expr
+    ::= additive
+
+additive
+    ::= multiplicative (("+" | "-") multiplicative)*
+
+multiplicative
+    ::= unary (("*" | "/") unary)*
+
+unary
+    ::= "-" unary
+     | primary
+
+primary
+    ::= function_call
+     | array_access
+     | INT
+     | IDENT
+     | "(" expr ")"
+
+#Вызовы функций и массивы
+function_call
+    ::= IDENT "(" arguments? ")"
+
+arguments
+    ::= expr ("," expr)*
+
+array_access
+    ::= IDENT "[" expr "]"
+
+#Условия
+condition
+    ::= implication
+
+implication
+    ::= disjunction ("->" implication)?
+
+disjunction
+    ::= conjunction ("or" conjunction)*
+
+conjunction
+    ::= condition_not ("and" condition_not)*
+
+condition_not
+    ::= "not" condition_not
+     | condition_primary
+
+condition_primary
+    ::= "true"
+     | "false"
+     | comparison
+     | "(" condition ")"
+
+comparison
+    ::= expr comparison_operator expr
+
+comparison_operator
+    ::= "=="
+     | "!="
+     | ">="
+     | "<="
+     | ">"
+     | "<"
+
+#Предикаты
+predicate
+    ::= predicate_implication
+
+predicate_implication
+    ::= predicate_or ("->" predicate_implication)?
+
+predicate_or
+    ::= predicate_and ("or" predicate_and)*
+
+predicate_and
+    ::= predicate_not ("and" predicate_not)*
+
+predicate_not
+    ::= "not" predicate_not
+     | predicate_primary
+
+predicate_primary
+    ::= quantifier
+     | formula_ref
+     | "true"
+     | "false"
+     | comparison
+     | "(" predicate ")"
+
+quantifier
+    ::= ("forall" | "exists")
+        "(" variable_def "|" predicate ")"
+
+formula_ref
+    ::= IDENT "(" arguments? ")"

@@ -37,6 +37,8 @@ COMMA         = ,
 COLON     = :
 SEMICOLON     = ;
 
+ARROW         = ->
+FAT_ARROW     = =>
 PLUS          = \+
 MINUS         = -
 STAR          = \*
@@ -48,3 +50,4 @@ GE            = >=
 LT            = <
 GT            = >
 ASSIGN        = =
+PIPE          = \|
