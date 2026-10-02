@@ -1,0 +1,758 @@
+{
+  "tests_total": 9,
+  "tests_passed": 9,
+  "tests_failed": 0,
+  "status": "PASS",
+  "tests": [
+    {
+      "name": "simple_arithmetic",
+      "type": "positive",
+      "input": "main() returns r:int {\n    r = 1 + 2 * 3;\n}\n",
+      "expected": {
+        "result": "AST"
+      },
+      "actual": {
+        "result": "AST",
+        "ast": {
+          "node": "Program",
+          "functions": [
+            {
+              "node": "Function",
+              "name": "main",
+              "parameters": [],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "+",
+                      "left": {
+                        "node": "IntLiteral",
+                        "value": 1
+                      },
+                      "right": {
+                        "node": "BinaryOp",
+                        "operator": "*",
+                        "left": {
+                          "node": "IntLiteral",
+                          "value": 2
+                        },
+                        "right": {
+                          "node": "IntLiteral",
+                          "value": 3
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    IntLiteral\n                      value:\n                        1\n                  right:\n                    BinaryOp\n                      operator:\n                        '*'\n                      left:\n                        IntLiteral\n                          value:\n                            2\n                      right:\n                        IntLiteral\n                          value:\n                            3"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "function_call",
+      "type": "positive",
+      "input": "add(a:int, b:int) returns r:int {\n    r = a + b;\n}\n\nmain() returns r:int {\n    r = add(2, 3);\n}\n",
+      "expected": {
+        "result": "AST"
+      },
+      "actual": {
+        "result": "AST",
+        "ast": {
+          "node": "Program",
+          "functions": [
+            {
+              "node": "Function",
+              "name": "add",
+              "parameters": [
+                {
+                  "node": "VariableDef",
+                  "name": "a",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                },
+                {
+                  "node": "VariableDef",
+                  "name": "b",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "+",
+                      "left": {
+                        "node": "Variable",
+                        "name": "a"
+                      },
+                      "right": {
+                        "node": "Variable",
+                        "name": "b"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "node": "Function",
+              "name": "main",
+              "parameters": [],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "FunctionCall",
+                      "name": "add",
+                      "arguments": [
+                        {
+                          "node": "IntLiteral",
+                          "value": 2
+                        },
+                        {
+                          "node": "IntLiteral",
+                          "value": 3
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'add'\n      parameters:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'b'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      name:\n                        'a'\n                  right:\n                    Variable\n                      name:\n                        'b'\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  name:\n                    'add'\n                  arguments:\n                    IntLiteral\n                      value:\n                        2\n                    IntLiteral\n                      value:\n                        3"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "multiple_return_values",
+      "type": "positive",
+      "input": "split(x:int) returns a:int, b:int {\n    a = x / 2;\n    b = x - a;\n}\n\naddpair(p:int, q:int) returns s:int {\n    s = p + q;\n}\n\nmain() returns r:int {\n    p, q = split(9);\n    r = addpair(p, q);\n}\n",
+      "expected": {
+        "result": "AST"
+      },
+      "actual": {
+        "result": "AST",
+        "ast": {
+          "node": "Program",
+          "functions": [
+            {
+              "node": "Function",
+              "name": "split",
+              "parameters": [
+                {
+                  "node": "VariableDef",
+                  "name": "x",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "a",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                },
+                {
+                  "node": "VariableDef",
+                  "name": "b",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "a"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "/",
+                      "left": {
+                        "node": "Variable",
+                        "name": "x"
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "value": 2
+                      }
+                    }
+                  },
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "b"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "-",
+                      "left": {
+                        "node": "Variable",
+                        "name": "x"
+                      },
+                      "right": {
+                        "node": "Variable",
+                        "name": "a"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "node": "Function",
+              "name": "addpair",
+              "parameters": [
+                {
+                  "node": "VariableDef",
+                  "name": "p",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                },
+                {
+                  "node": "VariableDef",
+                  "name": "q",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "s",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "s"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "+",
+                      "left": {
+                        "node": "Variable",
+                        "name": "p"
+                      },
+                      "right": {
+                        "node": "Variable",
+                        "name": "q"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "node": "Function",
+              "name": "main",
+              "parameters": [],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "p"
+                      },
+                      {
+                        "node": "Variable",
+                        "name": "q"
+                      }
+                    ],
+                    "value": {
+                      "node": "FunctionCall",
+                      "name": "split",
+                      "arguments": [
+                        {
+                          "node": "IntLiteral",
+                          "value": 9
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "FunctionCall",
+                      "name": "addpair",
+                      "arguments": [
+                        {
+                          "node": "Variable",
+                          "name": "p"
+                        },
+                        {
+                          "node": "Variable",
+                          "name": "q"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'split'\n      parameters:\n        VariableDef\n          name:\n            'x'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'b'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'a'\n              value:\n                BinaryOp\n                  operator:\n                    '/'\n                  left:\n                    Variable\n                      name:\n                        'x'\n                  right:\n                    IntLiteral\n                      value:\n                        2\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'b'\n              value:\n                BinaryOp\n                  operator:\n                    '-'\n                  left:\n                    Variable\n                      name:\n                        'x'\n                  right:\n                    Variable\n                      name:\n                        'a'\n    Function\n      name:\n        'addpair'\n      parameters:\n        VariableDef\n          name:\n            'p'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'q'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            's'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    's'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      name:\n                        'p'\n                  right:\n                    Variable\n                      name:\n                        'q'\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'p'\n                Variable\n                  name:\n                    'q'\n              value:\n                FunctionCall\n                  name:\n                    'split'\n                  arguments:\n                    IntLiteral\n                      value:\n                        9\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  name:\n                    'addpair'\n                  arguments:\n                    Variable\n                      name:\n                        'p'\n                    Variable\n                      name:\n                        'q'"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "control_flow",
+      "type": "positive",
+      "input": "main() returns r:int {\n    r = 0;\n\n    if (r == 0) {\n        assert r == 0;\n    } else {\n        assume r > 0;\n    }\n\n    while (r < 10)\n        invariant r >= 0\n    {\n        r = r + 1;\n    }\n}\n",
+      "expected": {
+        "result": "AST"
+      },
+      "actual": {
+        "result": "AST",
+        "ast": {
+          "node": "Program",
+          "functions": [
+            {
+              "node": "Function",
+              "name": "main",
+              "parameters": [],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "IntLiteral",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "node": "IfStatement",
+                    "condition": {
+                      "node": "Comparison",
+                      "operator": "==",
+                      "left": {
+                        "node": "Variable",
+                        "name": "r"
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "value": 0
+                      }
+                    },
+                    "then_branch": {
+                      "node": "Block",
+                      "statements": [
+                        {
+                          "node": "AssertStatement",
+                          "predicate": {
+                            "node": "Comparison",
+                            "operator": "==",
+                            "left": {
+                              "node": "Variable",
+                              "name": "r"
+                            },
+                            "right": {
+                              "node": "IntLiteral",
+                              "value": 0
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "else_branch": {
+                      "node": "Block",
+                      "statements": [
+                        {
+                          "node": "AssumeStatement",
+                          "predicate": {
+                            "node": "Comparison",
+                            "operator": ">",
+                            "left": {
+                              "node": "Variable",
+                              "name": "r"
+                            },
+                            "right": {
+                              "node": "IntLiteral",
+                              "value": 0
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": "WhileStatement",
+                    "condition": {
+                      "node": "Comparison",
+                      "operator": "<",
+                      "left": {
+                        "node": "Variable",
+                        "name": "r"
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "value": 10
+                      }
+                    },
+                    "invariant": {
+                      "node": "Comparison",
+                      "operator": ">=",
+                      "left": {
+                        "node": "Variable",
+                        "name": "r"
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "value": 0
+                      }
+                    },
+                    "body": {
+                      "node": "Block",
+                      "statements": [
+                        {
+                          "node": "Assignment",
+                          "targets": [
+                            {
+                              "node": "Variable",
+                              "name": "r"
+                            }
+                          ],
+                          "value": {
+                            "node": "BinaryOp",
+                            "operator": "+",
+                            "left": {
+                              "node": "Variable",
+                              "name": "r"
+                            },
+                            "right": {
+                              "node": "IntLiteral",
+                              "value": 1
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                IntLiteral\n                  value:\n                    0\n            IfStatement\n              condition:\n                Comparison\n                  operator:\n                    '=='\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        0\n              then_branch:\n                Block\n                  statements:\n                    AssertStatement\n                      predicate:\n                        Comparison\n                          operator:\n                            '=='\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                0\n              else_branch:\n                Block\n                  statements:\n                    AssumeStatement\n                      predicate:\n                        Comparison\n                          operator:\n                            '>'\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                0\n            WhileStatement\n              condition:\n                Comparison\n                  operator:\n                    '<'\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        10\n              invariant:\n                Comparison\n                  operator:\n                    '>='\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        0\n              body:\n                Block\n                  statements:\n                    Assignment\n                      targets:\n                        Variable\n                          name:\n                            'r'\n                      value:\n                        BinaryOp\n                          operator:\n                            '+'\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                1"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "array_access",
+      "type": "positive",
+      "input": "main(a:int[]) returns r:int {\n    a[0] = 10;\n    r = a[0] + 2;\n}\n",
+      "expected": {
+        "result": "AST"
+      },
+      "actual": {
+        "result": "AST",
+        "ast": {
+          "node": "Program",
+          "functions": [
+            {
+              "node": "Function",
+              "name": "main",
+              "parameters": [
+                {
+                  "node": "VariableDef",
+                  "name": "a",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": true
+                  }
+                }
+              ],
+              "returns": [
+                {
+                  "node": "VariableDef",
+                  "name": "r",
+                  "type": {
+                    "node": "Type",
+                    "name": "int",
+                    "is_array": false
+                  }
+                }
+              ],
+              "requires": null,
+              "ensures": null,
+              "uses": [],
+              "body": {
+                "node": "Block",
+                "statements": [
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "ArrayAccess",
+                        "array": "a",
+                        "index": {
+                          "node": "IntLiteral",
+                          "value": 0
+                        }
+                      }
+                    ],
+                    "value": {
+                      "node": "IntLiteral",
+                      "value": 10
+                    }
+                  },
+                  {
+                    "node": "Assignment",
+                    "targets": [
+                      {
+                        "node": "Variable",
+                        "name": "r"
+                      }
+                    ],
+                    "value": {
+                      "node": "BinaryOp",
+                      "operator": "+",
+                      "left": {
+                        "node": "ArrayAccess",
+                        "array": "a",
+                        "index": {
+                          "node": "IntLiteral",
+                          "value": 0
+                        }
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "value": 2
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                True\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                ArrayAccess\n                  array:\n                    'a'\n                  index:\n                    IntLiteral\n                      value:\n                        0\n              value:\n                IntLiteral\n                  value:\n                    10\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    ArrayAccess\n                      array:\n                        'a'\n                      index:\n                        IntLiteral\n                          value:\n                            0\n                  right:\n                    IntLiteral\n                      value:\n                        2"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "unmatched_parenthesis",
+      "type": "negative",
+      "input": "main() returns r:int {\n    r = (1 + 2;\n}\n",
+      "expected": {
+        "result": "ERROR"
+      },
+      "actual": {
+        "result": "ERROR",
+        "error_type": "ParseError",
+        "error": "expected RPAREN, got SEMICOLON (';') at 2:15"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "extra_tokens",
+      "type": "negative",
+      "input": "main() returns r:int {\n    r = 1;\n}\n\ngarbage\n",
+      "expected": {
+        "result": "ERROR"
+      },
+      "actual": {
+        "result": "ERROR",
+        "error_type": "ParseError",
+        "error": "expected LPAREN, got end of input"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_operator",
+      "type": "negative",
+      "input": "main() returns r:int {\n    r = 1 == 2;\n}\n",
+      "expected": {
+        "result": "ERROR"
+      },
+      "actual": {
+        "result": "ERROR",
+        "error_type": "ParseError",
+        "error": "expected SEMICOLON, got EQ ('==') at 2:11"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "empty_input",
+      "type": "negative",
+      "input": "",
+      "expected": {
+        "result": "ERROR"
+      },
+      "actual": {
+        "result": "ERROR",
+        "error_type": "ParseError",
+        "error": "empty input"
+      },
+      "status": "PASS"
+    }
+  ]
+}

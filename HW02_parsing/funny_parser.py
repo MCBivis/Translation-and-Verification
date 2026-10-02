@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-
 # ============================================================
 # AST
 # ============================================================
@@ -261,6 +260,9 @@ class Parser:
     # --------------------------------------------------------
 
     def parse(self) -> Program:
+        if self.current is None:
+            raise ParseError("empty input")
+
         functions = []
 
         while self.current is not None:
@@ -984,3 +986,481 @@ def parse(tokens) -> Program:
         )
 
     return program
+
+import json
+from dataclasses import asdict, is_dataclass
+
+
+from funny_lexer import TOKEN_SPECS, build_lexer
+
+# ============================================================
+# AST -> JSON
+# ============================================================
+
+def ast_to_dict(value):
+    """
+    Преобразует AST в обычные Python-объекты,
+    которые можно сохранить в JSON.
+    """
+
+    if is_dataclass(value):
+        result = {
+            "node": value.__class__.__name__
+        }
+
+        for field in value.__dataclass_fields__:
+            result[field] = ast_to_dict(
+                getattr(value, field)
+            )
+
+        return result
+
+    if isinstance(value, list):
+        return [ast_to_dict(item) for item in value]
+
+    if isinstance(value, dict):
+        return {
+            str(key): ast_to_dict(item)
+            for key, item in value.items()
+        }
+
+    return value
+
+
+# ============================================================
+# AST -> human-readable text
+# ============================================================
+
+def ast_to_text(value, indent=0):
+    """
+    Красивый текстовый вывод AST.
+    Используется main() для просмотра результата.
+    """
+
+    prefix = " " * indent
+
+    if is_dataclass(value):
+        lines = [
+            f"{prefix}{value.__class__.__name__}"
+        ]
+
+        for field in value.__dataclass_fields__:
+            field_value = getattr(value, field)
+
+            if field_value is None:
+                continue
+
+            lines.append(
+                f"{prefix}  {field}:"
+            )
+
+            lines.append(
+                ast_to_text(
+                    field_value,
+                    indent + 4
+                )
+            )
+
+        return "\n".join(lines)
+
+    if isinstance(value, list):
+        if not value:
+            return f"{prefix}[]"
+
+        return "\n".join(
+            ast_to_text(item, indent)
+            for item in value
+        )
+
+    return f"{prefix}{value!r}"
+
+
+# ============================================================
+# Test helpers
+# ============================================================
+
+def parse_source(dfa, source):
+    """
+    Запускает lexer, затем parser.
+    """
+
+    tokens = dfa.tokenize(source)
+
+    parser = Parser(tokens)
+
+    return parser.parse()
+
+
+def make_positive_test(
+    name,
+    source,
+    dfa,
+):
+    """
+    Положительный тест:
+    программа должна успешно разобраться.
+    """
+
+    try:
+        ast = parse_source(dfa, source)
+
+        return {
+            "name": name,
+            "type": "positive",
+            "input": source,
+            "expected": {
+                "result": "AST"
+            },
+            "actual": {
+                "result": "AST",
+                "ast": ast_to_dict(ast),
+                "ast_text": ast_to_text(ast),
+            },
+            "status": "PASS",
+        }
+
+    except Exception as exc:
+        return {
+            "name": name,
+            "type": "positive",
+            "input": source,
+            "expected": {
+                "result": "AST"
+            },
+            "actual": {
+                "result": "ERROR",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            },
+            "status": "FAIL",
+        }
+
+
+def make_negative_test(
+    name,
+    source,
+    dfa,
+):
+    """
+    Отрицательный тест:
+    программа должна завершиться ошибкой парсинга.
+    """
+
+    try:
+        ast = parse_source(dfa, source)
+
+        return {
+            "name": name,
+            "type": "negative",
+            "input": source,
+            "expected": {
+                "result": "ERROR"
+            },
+            "actual": {
+                "result": "AST",
+                "ast": ast_to_dict(ast),
+            },
+            "status": "FAIL",
+        }
+
+    except Exception as exc:
+        return {
+            "name": name,
+            "type": "negative",
+            "input": source,
+            "expected": {
+                "result": "ERROR"
+            },
+            "actual": {
+                "result": "ERROR",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            },
+            "status": "PASS",
+        }
+
+
+# ============================================================
+# Parser tests
+# ============================================================
+
+def run_parser_tests(dfa):
+    tests = []
+
+    # --------------------------------------------------------
+    # Positive test 1
+    # Простая функция и арифметика с приоритетом.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_positive_test(
+            "simple_arithmetic",
+            """\
+main() returns r:int {
+    r = 1 + 2 * 3;
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Positive test 2
+    # Параметры и вызов функции.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_positive_test(
+            "function_call",
+            """\
+add(a:int, b:int) returns r:int {
+    r = a + b;
+}
+
+main() returns r:int {
+    r = add(2, 3);
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Positive test 3
+    # Несколько возвращаемых значений.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_positive_test(
+            "multiple_return_values",
+            """\
+split(x:int) returns a:int, b:int {
+    a = x / 2;
+    b = x - a;
+}
+
+addpair(p:int, q:int) returns s:int {
+    s = p + q;
+}
+
+main() returns r:int {
+    p, q = split(9);
+    r = addpair(p, q);
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Positive test 4
+    # if / while / assert / assume.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_positive_test(
+            "control_flow",
+            """\
+main() returns r:int {
+    r = 0;
+
+    if (r == 0) {
+        assert r == 0;
+    } else {
+        assume r > 0;
+    }
+
+    while (r < 10)
+        invariant r >= 0
+    {
+        r = r + 1;
+    }
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Positive test 5
+    # Массивы.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_positive_test(
+            "array_access",
+            """\
+main(a:int[]) returns r:int {
+    a[0] = 10;
+    r = a[0] + 2;
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Negative test 1
+    # Незакрытая скобка.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_negative_test(
+            "unmatched_parenthesis",
+            """\
+main() returns r:int {
+    r = (1 + 2;
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Negative test 2
+    # Лишние токены после корректной функции.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_negative_test(
+            "extra_tokens",
+            """\
+main() returns r:int {
+    r = 1;
+}
+
+garbage
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Negative test 3
+    # Неправильный оператор в выражении.
+    #
+    # "==" является оператором сравнения и не может
+    # использоваться внутри обычного арифметического expr.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_negative_test(
+            "wrong_operator",
+            """\
+main() returns r:int {
+    r = 1 == 2;
+}
+""",
+            dfa,
+        )
+    )
+
+    # --------------------------------------------------------
+    # Negative test 4
+    # Пустой ввод.
+    # --------------------------------------------------------
+
+    tests.append(
+        make_negative_test(
+            "empty_input",
+            "",
+            dfa,
+        )
+    )
+
+    return tests
+
+
+# ============================================================
+# Main
+# ============================================================
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--tests",
+        default="parser_test_results.json",
+        help="JSON file with parser test results",
+    )
+
+    args = parser.parse_args()
+
+    # --------------------------------------------------------
+    # Build lexer.
+    # --------------------------------------------------------
+
+    _, _, dfa = build_lexer(
+        list(TOKEN_SPECS)
+    )
+
+    # --------------------------------------------------------
+    # Run parser tests.
+    # --------------------------------------------------------
+
+    report = run_parser_tests(dfa)
+
+    passed = sum(
+        item["status"] == "PASS"
+        for item in report
+    )
+
+    total = len(report)
+
+    # --------------------------------------------------------
+    # Save detailed JSON report.
+    # --------------------------------------------------------
+
+    output = {
+        "tests_total": total,
+        "tests_passed": passed,
+        "tests_failed": total - passed,
+        "status": "PASS" if passed == total else "FAIL",
+        "tests": report,
+    }
+
+    with open(
+        args.tests,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            output,
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    # --------------------------------------------------------
+    # Console output.
+    # --------------------------------------------------------
+
+    print(
+        f"Parser tests: {passed}/{total} PASS"
+    )
+
+    for test in report:
+        print(
+            f"[{test['status']}] "
+            f"{test['name']}"
+        )
+
+        if test["status"] == "FAIL":
+            print(
+                f"    {test['actual']}"
+            )
+
+    print(
+        f"Test report: {args.tests}"
+    )
+
+#     ast = parse_source(dfa, """\
+# main() returns r:int {
+#     r = 1 + 2;
+# }
+# """)
+#     print(ast_to_text(ast))
+if __name__ == "__main__":
+    main()
