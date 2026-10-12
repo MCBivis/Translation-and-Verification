@@ -229,8 +229,7 @@ class Parser:
 
         if token.type != token_type:
             raise ParseError(
-                f"expected {token_type}, got {token.type} "
-                f"({token.lexeme!r})",
+                f"expected {token_type}, got {token.lexeme!r}",
                 token,
             )
 
@@ -247,8 +246,7 @@ class Parser:
 
         if token.type != "IDENT":
             raise ParseError(
-                f"expected identifier, got "
-                f"{token.type} ({token.lexeme!r})",
+                f"expected identifier, got {token.lexeme!r}",
                 token,
             )
 
@@ -426,8 +424,7 @@ class Parser:
             raise ParseError("expected statement, got end of input")
 
         raise ParseError(
-            f"expected statement, got "
-            f"{token.type} ({token.lexeme!r})",
+            f"expected statement, got {token.lexeme!r}",
             token,
         )
 
@@ -666,8 +663,7 @@ class Parser:
             )
 
         raise ParseError(
-            f"expected expression, got "
-            f"{token.type} ({token.lexeme!r})",
+            f"expected expression, got {token.lexeme!r}",
             token,
         )
 
@@ -809,8 +805,7 @@ class Parser:
         if self.current.type not in operators:
             raise ParseError(
                 f"expected comparison operator, "
-                f"got {self.current.type} "
-                f"({self.current.lexeme!r})",
+                f"got {self.current.lexeme!r}",
                 self.current,
             )
 
@@ -980,8 +975,7 @@ def parse(tokens) -> Program:
         token = parser.current
 
         raise ParseError(
-            f"unexpected token "
-            f"{token.type} ({token.lexeme!r})",
+            f"unexpected token {token.lexeme!r}",
             token,
         )
 
