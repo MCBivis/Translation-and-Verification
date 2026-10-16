@@ -15,17 +15,25 @@
         "result": "AST",
         "ast": {
           "node": "Program",
+          "line": 1,
+          "column": 1,
           "functions": [
             {
               "node": "Function",
+              "line": 1,
+              "column": 1,
               "name": "main",
               "parameters": [],
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 16,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 18,
                     "name": "int",
                     "is_array": false
                   }
@@ -36,31 +44,47 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 1,
+                "column": 22,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 2,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 2,
+                      "column": 11,
                       "operator": "+",
                       "left": {
                         "node": "IntLiteral",
+                        "line": 2,
+                        "column": 9,
                         "value": 1
                       },
                       "right": {
                         "node": "BinaryOp",
+                        "line": 2,
+                        "column": 15,
                         "operator": "*",
                         "left": {
                           "node": "IntLiteral",
+                          "line": 2,
+                          "column": 13,
                           "value": 2
                         },
                         "right": {
                           "node": "IntLiteral",
+                          "line": 2,
+                          "column": 17,
                           "value": 3
                         }
                       }
@@ -71,7 +95,7 @@
             }
           ]
         },
-        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    IntLiteral\n                      value:\n                        1\n                  right:\n                    BinaryOp\n                      operator:\n                        '*'\n                      left:\n                        IntLiteral\n                          value:\n                            2\n                      right:\n                        IntLiteral\n                          value:\n                            3"
+        "ast_text": "Program\n  line:\n    1\n  column:\n    1\n  functions:\n    Function\n      line:\n        1\n      column:\n        1\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          line:\n            1\n          column:\n            16\n          name:\n            'r'\n          type:\n            Type\n              line:\n                1\n              column:\n                18\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            1\n          column:\n            22\n          statements:\n            Assignment\n              line:\n                2\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    2\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  line:\n                    2\n                  column:\n                    11\n                  operator:\n                    '+'\n                  left:\n                    IntLiteral\n                      line:\n                        2\n                      column:\n                        9\n                      value:\n                        1\n                  right:\n                    BinaryOp\n                      line:\n                        2\n                      column:\n                        15\n                      operator:\n                        '*'\n                      left:\n                        IntLiteral\n                          line:\n                            2\n                          column:\n                            13\n                          value:\n                            2\n                      right:\n                        IntLiteral\n                          line:\n                            2\n                          column:\n                            17\n                          value:\n                            3"
       },
       "status": "PASS"
     },
@@ -86,25 +110,37 @@
         "result": "AST",
         "ast": {
           "node": "Program",
+          "line": 1,
+          "column": 1,
           "functions": [
             {
               "node": "Function",
+              "line": 1,
+              "column": 1,
               "name": "add",
               "parameters": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 5,
                   "name": "a",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 7,
                     "name": "int",
                     "is_array": false
                   }
                 },
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 12,
                   "name": "b",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 14,
                     "name": "int",
                     "is_array": false
                   }
@@ -113,9 +149,13 @@
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 27,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 29,
                     "name": "int",
                     "is_array": false
                   }
@@ -126,24 +166,36 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 1,
+                "column": 33,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 2,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 2,
+                      "column": 11,
                       "operator": "+",
                       "left": {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 9,
                         "name": "a"
                       },
                       "right": {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 13,
                         "name": "b"
                       }
                     }
@@ -153,14 +205,20 @@
             },
             {
               "node": "Function",
+              "line": 5,
+              "column": 1,
               "name": "main",
               "parameters": [],
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 5,
+                  "column": 16,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 5,
+                    "column": 18,
                     "name": "int",
                     "is_array": false
                   }
@@ -171,25 +229,37 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 5,
+                "column": 22,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 6,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 6,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "FunctionCall",
+                      "line": 6,
+                      "column": 9,
                       "name": "add",
                       "arguments": [
                         {
                           "node": "IntLiteral",
+                          "line": 6,
+                          "column": 13,
                           "value": 2
                         },
                         {
                           "node": "IntLiteral",
+                          "line": 6,
+                          "column": 16,
                           "value": 3
                         }
                       ]
@@ -200,7 +270,7 @@
             }
           ]
         },
-        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'add'\n      parameters:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'b'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      name:\n                        'a'\n                  right:\n                    Variable\n                      name:\n                        'b'\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  name:\n                    'add'\n                  arguments:\n                    IntLiteral\n                      value:\n                        2\n                    IntLiteral\n                      value:\n                        3"
+        "ast_text": "Program\n  line:\n    1\n  column:\n    1\n  functions:\n    Function\n      line:\n        1\n      column:\n        1\n      name:\n        'add'\n      parameters:\n        VariableDef\n          line:\n            1\n          column:\n            5\n          name:\n            'a'\n          type:\n            Type\n              line:\n                1\n              column:\n                7\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          line:\n            1\n          column:\n            12\n          name:\n            'b'\n          type:\n            Type\n              line:\n                1\n              column:\n                14\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          line:\n            1\n          column:\n            27\n          name:\n            'r'\n          type:\n            Type\n              line:\n                1\n              column:\n                29\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            1\n          column:\n            33\n          statements:\n            Assignment\n              line:\n                2\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    2\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  line:\n                    2\n                  column:\n                    11\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      line:\n                        2\n                      column:\n                        9\n                      name:\n                        'a'\n                  right:\n                    Variable\n                      line:\n                        2\n                      column:\n                        13\n                      name:\n                        'b'\n    Function\n      line:\n        5\n      column:\n        1\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          line:\n            5\n          column:\n            16\n          name:\n            'r'\n          type:\n            Type\n              line:\n                5\n              column:\n                18\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            5\n          column:\n            22\n          statements:\n            Assignment\n              line:\n                6\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    6\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  line:\n                    6\n                  column:\n                    9\n                  name:\n                    'add'\n                  arguments:\n                    IntLiteral\n                      line:\n                        6\n                      column:\n                        13\n                      value:\n                        2\n                    IntLiteral\n                      line:\n                        6\n                      column:\n                        16\n                      value:\n                        3"
       },
       "status": "PASS"
     },
@@ -215,16 +285,24 @@
         "result": "AST",
         "ast": {
           "node": "Program",
+          "line": 1,
+          "column": 1,
           "functions": [
             {
               "node": "Function",
+              "line": 1,
+              "column": 1,
               "name": "split",
               "parameters": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 7,
                   "name": "x",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 9,
                     "name": "int",
                     "is_array": false
                   }
@@ -233,18 +311,26 @@
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 22,
                   "name": "a",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 24,
                     "name": "int",
                     "is_array": false
                   }
                 },
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 29,
                   "name": "b",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 31,
                     "name": "int",
                     "is_array": false
                   }
@@ -255,45 +341,67 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 1,
+                "column": 35,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 2,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 5,
                         "name": "a"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 2,
+                      "column": 11,
                       "operator": "/",
                       "left": {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 9,
                         "name": "x"
                       },
                       "right": {
                         "node": "IntLiteral",
+                        "line": 2,
+                        "column": 13,
                         "value": 2
                       }
                     }
                   },
                   {
                     "node": "Assignment",
+                    "line": 3,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 3,
+                        "column": 5,
                         "name": "b"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 3,
+                      "column": 11,
                       "operator": "-",
                       "left": {
                         "node": "Variable",
+                        "line": 3,
+                        "column": 9,
                         "name": "x"
                       },
                       "right": {
                         "node": "Variable",
+                        "line": 3,
+                        "column": 13,
                         "name": "a"
                       }
                     }
@@ -303,22 +411,32 @@
             },
             {
               "node": "Function",
+              "line": 6,
+              "column": 1,
               "name": "addpair",
               "parameters": [
                 {
                   "node": "VariableDef",
+                  "line": 6,
+                  "column": 9,
                   "name": "p",
                   "type": {
                     "node": "Type",
+                    "line": 6,
+                    "column": 11,
                     "name": "int",
                     "is_array": false
                   }
                 },
                 {
                   "node": "VariableDef",
+                  "line": 6,
+                  "column": 16,
                   "name": "q",
                   "type": {
                     "node": "Type",
+                    "line": 6,
+                    "column": 18,
                     "name": "int",
                     "is_array": false
                   }
@@ -327,9 +445,13 @@
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 6,
+                  "column": 31,
                   "name": "s",
                   "type": {
                     "node": "Type",
+                    "line": 6,
+                    "column": 33,
                     "name": "int",
                     "is_array": false
                   }
@@ -340,24 +462,36 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 6,
+                "column": 37,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 7,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 7,
+                        "column": 5,
                         "name": "s"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 7,
+                      "column": 11,
                       "operator": "+",
                       "left": {
                         "node": "Variable",
+                        "line": 7,
+                        "column": 9,
                         "name": "p"
                       },
                       "right": {
                         "node": "Variable",
+                        "line": 7,
+                        "column": 13,
                         "name": "q"
                       }
                     }
@@ -367,14 +501,20 @@
             },
             {
               "node": "Function",
+              "line": 10,
+              "column": 1,
               "name": "main",
               "parameters": [],
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 10,
+                  "column": 16,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 10,
+                    "column": 18,
                     "name": "int",
                     "is_array": false
                   }
@@ -385,25 +525,37 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 10,
+                "column": 22,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 11,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 11,
+                        "column": 5,
                         "name": "p"
                       },
                       {
                         "node": "Variable",
+                        "line": 11,
+                        "column": 8,
                         "name": "q"
                       }
                     ],
                     "value": {
                       "node": "FunctionCall",
+                      "line": 11,
+                      "column": 12,
                       "name": "split",
                       "arguments": [
                         {
                           "node": "IntLiteral",
+                          "line": 11,
+                          "column": 18,
                           "value": 9
                         }
                       ]
@@ -411,22 +563,32 @@
                   },
                   {
                     "node": "Assignment",
+                    "line": 12,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 12,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "FunctionCall",
+                      "line": 12,
+                      "column": 9,
                       "name": "addpair",
                       "arguments": [
                         {
                           "node": "Variable",
+                          "line": 12,
+                          "column": 17,
                           "name": "p"
                         },
                         {
                           "node": "Variable",
+                          "line": 12,
+                          "column": 20,
                           "name": "q"
                         }
                       ]
@@ -437,7 +599,7 @@
             }
           ]
         },
-        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'split'\n      parameters:\n        VariableDef\n          name:\n            'x'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'b'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'a'\n              value:\n                BinaryOp\n                  operator:\n                    '/'\n                  left:\n                    Variable\n                      name:\n                        'x'\n                  right:\n                    IntLiteral\n                      value:\n                        2\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'b'\n              value:\n                BinaryOp\n                  operator:\n                    '-'\n                  left:\n                    Variable\n                      name:\n                        'x'\n                  right:\n                    Variable\n                      name:\n                        'a'\n    Function\n      name:\n        'addpair'\n      parameters:\n        VariableDef\n          name:\n            'p'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          name:\n            'q'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          name:\n            's'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    's'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      name:\n                        'p'\n                  right:\n                    Variable\n                      name:\n                        'q'\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'p'\n                Variable\n                  name:\n                    'q'\n              value:\n                FunctionCall\n                  name:\n                    'split'\n                  arguments:\n                    IntLiteral\n                      value:\n                        9\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  name:\n                    'addpair'\n                  arguments:\n                    Variable\n                      name:\n                        'p'\n                    Variable\n                      name:\n                        'q'"
+        "ast_text": "Program\n  line:\n    1\n  column:\n    1\n  functions:\n    Function\n      line:\n        1\n      column:\n        1\n      name:\n        'split'\n      parameters:\n        VariableDef\n          line:\n            1\n          column:\n            7\n          name:\n            'x'\n          type:\n            Type\n              line:\n                1\n              column:\n                9\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          line:\n            1\n          column:\n            22\n          name:\n            'a'\n          type:\n            Type\n              line:\n                1\n              column:\n                24\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          line:\n            1\n          column:\n            29\n          name:\n            'b'\n          type:\n            Type\n              line:\n                1\n              column:\n                31\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            1\n          column:\n            35\n          statements:\n            Assignment\n              line:\n                2\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    2\n                  column:\n                    5\n                  name:\n                    'a'\n              value:\n                BinaryOp\n                  line:\n                    2\n                  column:\n                    11\n                  operator:\n                    '/'\n                  left:\n                    Variable\n                      line:\n                        2\n                      column:\n                        9\n                      name:\n                        'x'\n                  right:\n                    IntLiteral\n                      line:\n                        2\n                      column:\n                        13\n                      value:\n                        2\n            Assignment\n              line:\n                3\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    3\n                  column:\n                    5\n                  name:\n                    'b'\n              value:\n                BinaryOp\n                  line:\n                    3\n                  column:\n                    11\n                  operator:\n                    '-'\n                  left:\n                    Variable\n                      line:\n                        3\n                      column:\n                        9\n                      name:\n                        'x'\n                  right:\n                    Variable\n                      line:\n                        3\n                      column:\n                        13\n                      name:\n                        'a'\n    Function\n      line:\n        6\n      column:\n        1\n      name:\n        'addpair'\n      parameters:\n        VariableDef\n          line:\n            6\n          column:\n            9\n          name:\n            'p'\n          type:\n            Type\n              line:\n                6\n              column:\n                11\n              name:\n                'int'\n              is_array:\n                False\n        VariableDef\n          line:\n            6\n          column:\n            16\n          name:\n            'q'\n          type:\n            Type\n              line:\n                6\n              column:\n                18\n              name:\n                'int'\n              is_array:\n                False\n      returns:\n        VariableDef\n          line:\n            6\n          column:\n            31\n          name:\n            's'\n          type:\n            Type\n              line:\n                6\n              column:\n                33\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            6\n          column:\n            37\n          statements:\n            Assignment\n              line:\n                7\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    7\n                  column:\n                    5\n                  name:\n                    's'\n              value:\n                BinaryOp\n                  line:\n                    7\n                  column:\n                    11\n                  operator:\n                    '+'\n                  left:\n                    Variable\n                      line:\n                        7\n                      column:\n                        9\n                      name:\n                        'p'\n                  right:\n                    Variable\n                      line:\n                        7\n                      column:\n                        13\n                      name:\n                        'q'\n    Function\n      line:\n        10\n      column:\n        1\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          line:\n            10\n          column:\n            16\n          name:\n            'r'\n          type:\n            Type\n              line:\n                10\n              column:\n                18\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            10\n          column:\n            22\n          statements:\n            Assignment\n              line:\n                11\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    11\n                  column:\n                    5\n                  name:\n                    'p'\n                Variable\n                  line:\n                    11\n                  column:\n                    8\n                  name:\n                    'q'\n              value:\n                FunctionCall\n                  line:\n                    11\n                  column:\n                    12\n                  name:\n                    'split'\n                  arguments:\n                    IntLiteral\n                      line:\n                        11\n                      column:\n                        18\n                      value:\n                        9\n            Assignment\n              line:\n                12\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    12\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                FunctionCall\n                  line:\n                    12\n                  column:\n                    9\n                  name:\n                    'addpair'\n                  arguments:\n                    Variable\n                      line:\n                        12\n                      column:\n                        17\n                      name:\n                        'p'\n                    Variable\n                      line:\n                        12\n                      column:\n                        20\n                      name:\n                        'q'"
       },
       "status": "PASS"
     },
@@ -452,17 +614,25 @@
         "result": "AST",
         "ast": {
           "node": "Program",
+          "line": 1,
+          "column": 1,
           "functions": [
             {
               "node": "Function",
+              "line": 1,
+              "column": 1,
               "name": "main",
               "parameters": [],
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 16,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 18,
                     "name": "int",
                     "is_array": false
                   }
@@ -473,48 +643,74 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 1,
+                "column": 22,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 2,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 2,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "IntLiteral",
+                      "line": 2,
+                      "column": 9,
                       "value": 0
                     }
                   },
                   {
                     "node": "IfStatement",
+                    "line": 4,
+                    "column": 5,
                     "condition": {
                       "node": "Comparison",
+                      "line": 4,
+                      "column": 9,
                       "operator": "==",
                       "left": {
                         "node": "Variable",
+                        "line": 4,
+                        "column": 9,
                         "name": "r"
                       },
                       "right": {
                         "node": "IntLiteral",
+                        "line": 4,
+                        "column": 14,
                         "value": 0
                       }
                     },
                     "then_branch": {
                       "node": "Block",
+                      "line": 4,
+                      "column": 17,
                       "statements": [
                         {
                           "node": "AssertStatement",
+                          "line": 5,
+                          "column": 9,
                           "predicate": {
                             "node": "Comparison",
+                            "line": 5,
+                            "column": 16,
                             "operator": "==",
                             "left": {
                               "node": "Variable",
+                              "line": 5,
+                              "column": 16,
                               "name": "r"
                             },
                             "right": {
                               "node": "IntLiteral",
+                              "line": 5,
+                              "column": 21,
                               "value": 0
                             }
                           }
@@ -523,18 +719,28 @@
                     },
                     "else_branch": {
                       "node": "Block",
+                      "line": 6,
+                      "column": 12,
                       "statements": [
                         {
                           "node": "AssumeStatement",
+                          "line": 7,
+                          "column": 9,
                           "predicate": {
                             "node": "Comparison",
+                            "line": 7,
+                            "column": 16,
                             "operator": ">",
                             "left": {
                               "node": "Variable",
+                              "line": 7,
+                              "column": 16,
                               "name": "r"
                             },
                             "right": {
                               "node": "IntLiteral",
+                              "line": 7,
+                              "column": 20,
                               "value": 0
                             }
                           }
@@ -544,50 +750,76 @@
                   },
                   {
                     "node": "WhileStatement",
+                    "line": 10,
+                    "column": 5,
                     "condition": {
                       "node": "Comparison",
+                      "line": 10,
+                      "column": 12,
                       "operator": "<",
                       "left": {
                         "node": "Variable",
+                        "line": 10,
+                        "column": 12,
                         "name": "r"
                       },
                       "right": {
                         "node": "IntLiteral",
+                        "line": 10,
+                        "column": 16,
                         "value": 10
                       }
                     },
                     "invariant": {
                       "node": "Comparison",
+                      "line": 11,
+                      "column": 19,
                       "operator": ">=",
                       "left": {
                         "node": "Variable",
+                        "line": 11,
+                        "column": 19,
                         "name": "r"
                       },
                       "right": {
                         "node": "IntLiteral",
+                        "line": 11,
+                        "column": 24,
                         "value": 0
                       }
                     },
                     "body": {
                       "node": "Block",
+                      "line": 12,
+                      "column": 5,
                       "statements": [
                         {
                           "node": "Assignment",
+                          "line": 13,
+                          "column": 9,
                           "targets": [
                             {
                               "node": "Variable",
+                              "line": 13,
+                              "column": 9,
                               "name": "r"
                             }
                           ],
                           "value": {
                             "node": "BinaryOp",
+                            "line": 13,
+                            "column": 15,
                             "operator": "+",
                             "left": {
                               "node": "Variable",
+                              "line": 13,
+                              "column": 13,
                               "name": "r"
                             },
                             "right": {
                               "node": "IntLiteral",
+                              "line": 13,
+                              "column": 17,
                               "value": 1
                             }
                           }
@@ -600,7 +832,7 @@
             }
           ]
         },
-        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                IntLiteral\n                  value:\n                    0\n            IfStatement\n              condition:\n                Comparison\n                  operator:\n                    '=='\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        0\n              then_branch:\n                Block\n                  statements:\n                    AssertStatement\n                      predicate:\n                        Comparison\n                          operator:\n                            '=='\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                0\n              else_branch:\n                Block\n                  statements:\n                    AssumeStatement\n                      predicate:\n                        Comparison\n                          operator:\n                            '>'\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                0\n            WhileStatement\n              condition:\n                Comparison\n                  operator:\n                    '<'\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        10\n              invariant:\n                Comparison\n                  operator:\n                    '>='\n                  left:\n                    Variable\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      value:\n                        0\n              body:\n                Block\n                  statements:\n                    Assignment\n                      targets:\n                        Variable\n                          name:\n                            'r'\n                      value:\n                        BinaryOp\n                          operator:\n                            '+'\n                          left:\n                            Variable\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              value:\n                                1"
+        "ast_text": "Program\n  line:\n    1\n  column:\n    1\n  functions:\n    Function\n      line:\n        1\n      column:\n        1\n      name:\n        'main'\n      parameters:\n        []\n      returns:\n        VariableDef\n          line:\n            1\n          column:\n            16\n          name:\n            'r'\n          type:\n            Type\n              line:\n                1\n              column:\n                18\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            1\n          column:\n            22\n          statements:\n            Assignment\n              line:\n                2\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    2\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                IntLiteral\n                  line:\n                    2\n                  column:\n                    9\n                  value:\n                    0\n            IfStatement\n              line:\n                4\n              column:\n                5\n              condition:\n                Comparison\n                  line:\n                    4\n                  column:\n                    9\n                  operator:\n                    '=='\n                  left:\n                    Variable\n                      line:\n                        4\n                      column:\n                        9\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      line:\n                        4\n                      column:\n                        14\n                      value:\n                        0\n              then_branch:\n                Block\n                  line:\n                    4\n                  column:\n                    17\n                  statements:\n                    AssertStatement\n                      line:\n                        5\n                      column:\n                        9\n                      predicate:\n                        Comparison\n                          line:\n                            5\n                          column:\n                            16\n                          operator:\n                            '=='\n                          left:\n                            Variable\n                              line:\n                                5\n                              column:\n                                16\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              line:\n                                5\n                              column:\n                                21\n                              value:\n                                0\n              else_branch:\n                Block\n                  line:\n                    6\n                  column:\n                    12\n                  statements:\n                    AssumeStatement\n                      line:\n                        7\n                      column:\n                        9\n                      predicate:\n                        Comparison\n                          line:\n                            7\n                          column:\n                            16\n                          operator:\n                            '>'\n                          left:\n                            Variable\n                              line:\n                                7\n                              column:\n                                16\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              line:\n                                7\n                              column:\n                                20\n                              value:\n                                0\n            WhileStatement\n              line:\n                10\n              column:\n                5\n              condition:\n                Comparison\n                  line:\n                    10\n                  column:\n                    12\n                  operator:\n                    '<'\n                  left:\n                    Variable\n                      line:\n                        10\n                      column:\n                        12\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      line:\n                        10\n                      column:\n                        16\n                      value:\n                        10\n              invariant:\n                Comparison\n                  line:\n                    11\n                  column:\n                    19\n                  operator:\n                    '>='\n                  left:\n                    Variable\n                      line:\n                        11\n                      column:\n                        19\n                      name:\n                        'r'\n                  right:\n                    IntLiteral\n                      line:\n                        11\n                      column:\n                        24\n                      value:\n                        0\n              body:\n                Block\n                  line:\n                    12\n                  column:\n                    5\n                  statements:\n                    Assignment\n                      line:\n                        13\n                      column:\n                        9\n                      targets:\n                        Variable\n                          line:\n                            13\n                          column:\n                            9\n                          name:\n                            'r'\n                      value:\n                        BinaryOp\n                          line:\n                            13\n                          column:\n                            15\n                          operator:\n                            '+'\n                          left:\n                            Variable\n                              line:\n                                13\n                              column:\n                                13\n                              name:\n                                'r'\n                          right:\n                            IntLiteral\n                              line:\n                                13\n                              column:\n                                17\n                              value:\n                                1"
       },
       "status": "PASS"
     },
@@ -615,16 +847,24 @@
         "result": "AST",
         "ast": {
           "node": "Program",
+          "line": 1,
+          "column": 1,
           "functions": [
             {
               "node": "Function",
+              "line": 1,
+              "column": 1,
               "name": "main",
               "parameters": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 6,
                   "name": "a",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 8,
                     "name": "int",
                     "is_array": true
                   }
@@ -633,9 +873,13 @@
               "returns": [
                 {
                   "node": "VariableDef",
+                  "line": 1,
+                  "column": 23,
                   "name": "r",
                   "type": {
                     "node": "Type",
+                    "line": 1,
+                    "column": 25,
                     "name": "int",
                     "is_array": false
                   }
@@ -646,45 +890,67 @@
               "uses": [],
               "body": {
                 "node": "Block",
+                "line": 1,
+                "column": 29,
                 "statements": [
                   {
                     "node": "Assignment",
+                    "line": 2,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "ArrayAccess",
+                        "line": 2,
+                        "column": 5,
                         "array": "a",
                         "index": {
                           "node": "IntLiteral",
+                          "line": 2,
+                          "column": 7,
                           "value": 0
                         }
                       }
                     ],
                     "value": {
                       "node": "IntLiteral",
+                      "line": 2,
+                      "column": 12,
                       "value": 10
                     }
                   },
                   {
                     "node": "Assignment",
+                    "line": 3,
+                    "column": 5,
                     "targets": [
                       {
                         "node": "Variable",
+                        "line": 3,
+                        "column": 5,
                         "name": "r"
                       }
                     ],
                     "value": {
                       "node": "BinaryOp",
+                      "line": 3,
+                      "column": 14,
                       "operator": "+",
                       "left": {
                         "node": "ArrayAccess",
+                        "line": 3,
+                        "column": 9,
                         "array": "a",
                         "index": {
                           "node": "IntLiteral",
+                          "line": 3,
+                          "column": 11,
                           "value": 0
                         }
                       },
                       "right": {
                         "node": "IntLiteral",
+                        "line": 3,
+                        "column": 16,
                         "value": 2
                       }
                     }
@@ -694,7 +960,7 @@
             }
           ]
         },
-        "ast_text": "Program\n  functions:\n    Function\n      name:\n        'main'\n      parameters:\n        VariableDef\n          name:\n            'a'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                True\n      returns:\n        VariableDef\n          name:\n            'r'\n          type:\n            Type\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          statements:\n            Assignment\n              targets:\n                ArrayAccess\n                  array:\n                    'a'\n                  index:\n                    IntLiteral\n                      value:\n                        0\n              value:\n                IntLiteral\n                  value:\n                    10\n            Assignment\n              targets:\n                Variable\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  operator:\n                    '+'\n                  left:\n                    ArrayAccess\n                      array:\n                        'a'\n                      index:\n                        IntLiteral\n                          value:\n                            0\n                  right:\n                    IntLiteral\n                      value:\n                        2"
+        "ast_text": "Program\n  line:\n    1\n  column:\n    1\n  functions:\n    Function\n      line:\n        1\n      column:\n        1\n      name:\n        'main'\n      parameters:\n        VariableDef\n          line:\n            1\n          column:\n            6\n          name:\n            'a'\n          type:\n            Type\n              line:\n                1\n              column:\n                8\n              name:\n                'int'\n              is_array:\n                True\n      returns:\n        VariableDef\n          line:\n            1\n          column:\n            23\n          name:\n            'r'\n          type:\n            Type\n              line:\n                1\n              column:\n                25\n              name:\n                'int'\n              is_array:\n                False\n      uses:\n        []\n      body:\n        Block\n          line:\n            1\n          column:\n            29\n          statements:\n            Assignment\n              line:\n                2\n              column:\n                5\n              targets:\n                ArrayAccess\n                  line:\n                    2\n                  column:\n                    5\n                  array:\n                    'a'\n                  index:\n                    IntLiteral\n                      line:\n                        2\n                      column:\n                        7\n                      value:\n                        0\n              value:\n                IntLiteral\n                  line:\n                    2\n                  column:\n                    12\n                  value:\n                    10\n            Assignment\n              line:\n                3\n              column:\n                5\n              targets:\n                Variable\n                  line:\n                    3\n                  column:\n                    5\n                  name:\n                    'r'\n              value:\n                BinaryOp\n                  line:\n                    3\n                  column:\n                    14\n                  operator:\n                    '+'\n                  left:\n                    ArrayAccess\n                      line:\n                        3\n                      column:\n                        9\n                      array:\n                        'a'\n                      index:\n                        IntLiteral\n                          line:\n                            3\n                          column:\n                            11\n                          value:\n                            0\n                  right:\n                    IntLiteral\n                      line:\n                        3\n                      column:\n                        16\n                      value:\n                        2"
       },
       "status": "PASS"
     },
@@ -708,7 +974,7 @@
       "actual": {
         "result": "ERROR",
         "error_type": "ParseError",
-        "error": "expected RPAREN, got SEMICOLON (';') at 2:15"
+        "error": "expected RPAREN, got ';' at 2:15"
       },
       "status": "PASS"
     },
@@ -736,7 +1002,7 @@
       "actual": {
         "result": "ERROR",
         "error_type": "ParseError",
-        "error": "expected SEMICOLON, got EQ ('==') at 2:11"
+        "error": "expected SEMICOLON, got '==' at 2:11"
       },
       "status": "PASS"
     },

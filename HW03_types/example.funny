@@ -1,0 +1,5 @@
+setdiag(a:int[]) returns b:int[] {
+    b = a;
+    b[0] = 1;
+    b[1] = b[0] + 2;
+}

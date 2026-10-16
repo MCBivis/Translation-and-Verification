@@ -7,13 +7,21 @@ from typing import Optional
 # AST
 # ============================================================
 
+@dataclass(kw_only=True)
+class ASTNode:
+    """Base class for AST nodes with their source position."""
+
+    line: Optional[int] = None
+    column: Optional[int] = None
+
+
 @dataclass
-class Program:
+class Program(ASTNode):
     functions: list["Function"]
 
 
 @dataclass
-class Function:
+class Function(ASTNode):
     name: str
     parameters: list["VariableDef"]
     returns: list["VariableDef"]
@@ -24,19 +32,19 @@ class Function:
 
 
 @dataclass
-class VariableDef:
+class VariableDef(ASTNode):
     name: str
     type: "Type"
 
 
 @dataclass
-class LocalVarDef:
+class LocalVarDef(ASTNode):
     name: str
     type: Optional["Type"]
 
 
 @dataclass
-class Type:
+class Type(ASTNode):
     name: str
     is_array: bool = False
 
@@ -45,7 +53,7 @@ class Type:
 # Statements
 # ============================================================
 
-class Statement:
+class Statement(ASTNode):
     pass
 
 
@@ -88,7 +96,7 @@ class AssumeStatement(Statement):
 # Expressions
 # ============================================================
 
-class Expression:
+class Expression(ASTNode):
     pass
 
 
@@ -131,7 +139,7 @@ class BinaryOp(Expression):
 # Predicates
 # ============================================================
 
-class Predicate:
+class Predicate(ASTNode):
     pass
 
 
@@ -261,12 +269,17 @@ class Parser:
         if self.current is None:
             raise ParseError("empty input")
 
+        start_token = self.current
         functions = []
 
         while self.current is not None:
             functions.append(self.parse_function())
 
-        return Program(functions)
+        return Program(
+            functions,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # function
@@ -280,6 +293,7 @@ class Parser:
     # --------------------------------------------------------
 
     def parse_function(self) -> Function:
+        start_token = self.current
         name = self.expect_identifier().lexeme
 
         self.expect("LPAREN")
@@ -323,6 +337,8 @@ class Parser:
             ensures=ensures,
             uses=uses,
             body=body,
+            line=start_token.line,
+            column=start_token.column,
         )
 
     # --------------------------------------------------------
@@ -348,15 +364,22 @@ class Parser:
         return result
 
     def parse_variable_def(self):
+        start_token = self.current
         name = self.expect_identifier().lexeme
 
         self.expect("COLON")
 
         type_ = self.parse_type()
 
-        return VariableDef(name, type_)
+        return VariableDef(
+            name,
+            type_,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     def parse_local_var_def(self):
+        start_token = self.current
         name = self.expect_identifier().lexeme
 
         type_ = None
@@ -365,22 +388,36 @@ class Parser:
             self.advance()
             type_ = self.parse_type()
 
-        return LocalVarDef(name, type_)
+        return LocalVarDef(
+            name,
+            type_,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # type
     # --------------------------------------------------------
 
     def parse_type(self):
-        self.expect("KW_INT")
+        start_token = self.expect("KW_INT")
 
         if self.peek("LBRACKET"):
             self.advance()
             self.expect("RBRACKET")
 
-            return Type("int", is_array=True)
+            return Type(
+                "int",
+                is_array=True,
+                line=start_token.line,
+                column=start_token.column,
+            )
 
-        return Type("int")
+        return Type(
+            "int",
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # uses
@@ -433,7 +470,7 @@ class Parser:
     # --------------------------------------------------------
 
     def parse_block(self):
-        self.expect("LBRACE")
+        start_token = self.expect("LBRACE")
 
         statements = []
 
@@ -442,14 +479,18 @@ class Parser:
 
         self.expect("RBRACE")
 
-        return Block(statements)
+        return Block(
+            statements,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # if
     # --------------------------------------------------------
 
     def parse_if(self):
-        self.expect("KW_IF")
+        start_token = self.expect("KW_IF")
         self.expect("LPAREN")
 
         condition = self.parse_condition()
@@ -468,6 +509,8 @@ class Parser:
             condition,
             then_branch,
             else_branch,
+            line=start_token.line,
+            column=start_token.column,
         )
 
     # --------------------------------------------------------
@@ -475,7 +518,7 @@ class Parser:
     # --------------------------------------------------------
 
     def parse_while(self):
-        self.expect("KW_WHILE")
+        start_token = self.expect("KW_WHILE")
         self.expect("LPAREN")
 
         condition = self.parse_condition()
@@ -494,6 +537,8 @@ class Parser:
             condition,
             invariant,
             body,
+            line=start_token.line,
+            column=start_token.column,
         )
 
     # --------------------------------------------------------
@@ -501,32 +546,41 @@ class Parser:
     # --------------------------------------------------------
 
     def parse_assert(self):
-        self.expect("KW_ASSERT")
+        start_token = self.expect("KW_ASSERT")
 
         predicate = self.parse_predicate()
 
         self.expect("SEMICOLON")
 
-        return AssertStatement(predicate)
+        return AssertStatement(
+            predicate,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # assume
     # --------------------------------------------------------
 
     def parse_assume(self):
-        self.expect("KW_ASSUME")
+        start_token = self.expect("KW_ASSUME")
 
         predicate = self.parse_predicate()
 
         self.expect("SEMICOLON")
 
-        return AssumeStatement(predicate)
+        return AssumeStatement(
+            predicate,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # --------------------------------------------------------
     # assignment
     # --------------------------------------------------------
 
     def parse_assignment(self):
+        start_token = self.current
         first = self.expect_identifier().lexeme
 
         # ----------------------------------------------------
@@ -536,13 +590,22 @@ class Parser:
         # ----------------------------------------------------
 
         if self.peek("COMMA"):
-            targets = [Variable(first)]
+            targets = [Variable(
+                first,
+                line=start_token.line,
+                column=start_token.column,
+            )]
 
             while self.peek("COMMA"):
                 self.advance()
 
+                target_token = self.current
                 name = self.expect_identifier().lexeme
-                targets.append(Variable(name))
+                targets.append(Variable(
+                    name,
+                    line=target_token.line,
+                    column=target_token.column,
+                ))
 
             self.expect("ASSIGN")
 
@@ -550,13 +613,22 @@ class Parser:
 
             self.expect("SEMICOLON")
 
-            return Assignment(targets, value)
+            return Assignment(
+                targets,
+                value,
+                line=start_token.line,
+                column=start_token.column,
+            )
 
         # ----------------------------------------------------
         # Single assignment.
         # ----------------------------------------------------
 
-        target = Variable(first)
+        target = Variable(
+            first,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
         if self.peek("LBRACKET"):
             self.advance()
@@ -565,7 +637,12 @@ class Parser:
 
             self.expect("RBRACKET")
 
-            target = ArrayAccess(first, index)
+            target = ArrayAccess(
+                first,
+                index,
+                line=start_token.line,
+                column=start_token.column,
+            )
 
         self.expect("ASSIGN")
 
@@ -573,7 +650,12 @@ class Parser:
 
         self.expect("SEMICOLON")
 
-        return Assignment([target], value)
+        return Assignment(
+            [target],
+            value,
+            line=start_token.line,
+            column=start_token.column,
+        )
 
     # ========================================================
     # Expressions
@@ -586,13 +668,16 @@ class Parser:
         left = self.parse_multiplicative()
 
         while self.peek("PLUS") or self.peek("MINUS"):
-            operator = self.advance().lexeme
+            operator_token = self.advance()
+            operator = operator_token.lexeme
             right = self.parse_multiplicative()
 
             left = BinaryOp(
                 operator,
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
@@ -601,39 +686,68 @@ class Parser:
         left = self.parse_unary()
 
         while self.peek("STAR") or self.peek("SLASH"):
-            operator = self.advance().lexeme
+            operator_token = self.advance()
+            operator = operator_token.lexeme
             right = self.parse_unary()
 
             left = BinaryOp(
                 operator,
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
 
     def parse_unary(self):
         if self.peek("MINUS"):
-            operator = self.advance().lexeme
+            operator_token = self.advance()
 
             return UnaryOp(
-                operator,
+                operator_token.lexeme,
                 self.parse_unary(),
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return self.parse_primary()
 
     def parse_primary(self):
+        if self.peek("KW_LENGTH"):
+            token = self.advance()
+            self.expect("LPAREN")
+
+            arguments = []
+            if not self.peek("RPAREN"):
+                arguments.append(self.parse_expression())
+                while self.peek("COMMA"):
+                    self.advance()
+                    arguments.append(self.parse_expression())
+
+            self.expect("RPAREN")
+            return FunctionCall(
+                "length",
+                arguments,
+                line=token.line,
+                column=token.column,
+            )
+
         if self.peek("INT"):
             token = self.advance()
 
-            return IntLiteral(int(token.lexeme))
+            return IntLiteral(
+                int(token.lexeme),
+                line=token.line,
+                column=token.column,
+            )
 
         if self.peek("IDENT"):
-            name = self.advance().lexeme
+            token = self.advance()
+            name = token.lexeme
 
             if self.peek("LPAREN"):
-                return self.parse_function_call_after_name(name)
+                return self.parse_function_call_after_name(name, token)
 
             if self.peek("LBRACKET"):
                 self.advance()
@@ -642,9 +756,18 @@ class Parser:
 
                 self.expect("RBRACKET")
 
-                return ArrayAccess(name, index)
+                return ArrayAccess(
+                    name,
+                    index,
+                    line=token.line,
+                    column=token.column,
+                )
 
-            return Variable(name)
+            return Variable(
+                name,
+                line=token.line,
+                column=token.column,
+            )
 
         if self.peek("LPAREN"):
             self.advance()
@@ -672,11 +795,12 @@ class Parser:
     # --------------------------------------------------------
 
     def parse_function_call(self):
-        name = self.expect_identifier().lexeme
+        token = self.expect_identifier()
+        return self.parse_function_call_after_name(token.lexeme, token)
 
-        return self.parse_function_call_after_name(name)
-
-    def parse_function_call_after_name(self, name):
+    def parse_function_call_after_name(self, name, start_token=None):
+        if start_token is None:
+            start_token = self.current
         self.expect("LPAREN")
 
         arguments = []
@@ -693,6 +817,8 @@ class Parser:
         return FunctionCall(
             name=name,
             arguments=arguments,
+            line=start_token.line if start_token is not None else None,
+            column=start_token.column if start_token is not None else None,
         )
 
     # ========================================================
@@ -706,7 +832,7 @@ class Parser:
         left = self.parse_or()
 
         if self.peek("ARROW"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_implication()
 
@@ -714,6 +840,8 @@ class Parser:
                 "->",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
@@ -722,7 +850,7 @@ class Parser:
         left = self.parse_and()
 
         while self.peek("KW_OR"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_and()
 
@@ -730,6 +858,8 @@ class Parser:
                 "or",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
@@ -738,7 +868,7 @@ class Parser:
         left = self.parse_not()
 
         while self.peek("KW_AND"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_not()
 
@@ -746,28 +876,32 @@ class Parser:
                 "and",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
 
     def parse_not(self):
         if self.peek("KW_NOT"):
-            self.advance()
+            token = self.advance()
 
             return PredicateNot(
-                self.parse_not()
+                self.parse_not(),
+                line=token.line,
+                column=token.column,
             )
 
         return self.parse_condition_primary()
 
     def parse_condition_primary(self):
         if self.peek("KW_TRUE"):
-            self.advance()
-            return BoolLiteral(True)
+            token = self.advance()
+            return BoolLiteral(True, line=token.line, column=token.column)
 
         if self.peek("KW_FALSE"):
-            self.advance()
-            return BoolLiteral(False)
+            token = self.advance()
+            return BoolLiteral(False, line=token.line, column=token.column)
 
         if self.peek("LPAREN"):
             self.advance()
@@ -786,6 +920,8 @@ class Parser:
 
     def parse_comparison(self):
         left = self.parse_expression()
+        start_line = getattr(left, "line", None)
+        start_column = getattr(left, "column", None)
 
         operators = {
             "EQ",
@@ -817,6 +953,8 @@ class Parser:
             operator,
             left,
             right,
+            line=start_line,
+            column=start_column,
         )
 
     # ========================================================
@@ -830,7 +968,7 @@ class Parser:
         left = self.parse_predicate_or()
 
         if self.peek("ARROW"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_predicate_implication()
 
@@ -838,6 +976,8 @@ class Parser:
                 "->",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
@@ -846,7 +986,7 @@ class Parser:
         left = self.parse_predicate_and()
 
         while self.peek("KW_OR"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_predicate_and()
 
@@ -854,6 +994,8 @@ class Parser:
                 "or",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
@@ -862,7 +1004,7 @@ class Parser:
         left = self.parse_predicate_not()
 
         while self.peek("KW_AND"):
-            self.advance()
+            operator_token = self.advance()
 
             right = self.parse_predicate_not()
 
@@ -870,16 +1012,20 @@ class Parser:
                 "and",
                 left,
                 right,
+                line=operator_token.line,
+                column=operator_token.column,
             )
 
         return left
 
     def parse_predicate_not(self):
         if self.peek("KW_NOT"):
-            self.advance()
+            token = self.advance()
 
             return PredicateNot(
-                self.parse_predicate_not()
+                self.parse_predicate_not(),
+                line=token.line,
+                column=token.column,
             )
 
         return self.parse_predicate_primary()
@@ -889,12 +1035,12 @@ class Parser:
             return self.parse_quantifier()
 
         if self.peek("KW_TRUE"):
-            self.advance()
-            return BoolLiteral(True)
+            token = self.advance()
+            return BoolLiteral(True, line=token.line, column=token.column)
 
         if self.peek("KW_FALSE"):
-            self.advance()
-            return BoolLiteral(False)
+            token = self.advance()
+            return BoolLiteral(False, line=token.line, column=token.column)
 
         if self.peek("LPAREN"):
             self.advance()
@@ -905,14 +1051,13 @@ class Parser:
 
             return result
 
-        # identifier(...) в предикате трактуем
-        # как ссылку на формулу.
         if (
             self.peek("IDENT")
             and self.pos + 1 < len(self.tokens)
             and self.tokens[self.pos + 1].type == "LPAREN"
         ):
-            name = self.advance().lexeme
+            start_token = self.advance()
+            name = start_token.lexeme
 
             self.expect("LPAREN")
 
@@ -930,6 +1075,8 @@ class Parser:
             return FormulaRef(
                 name,
                 arguments,
+                line=start_token.line,
+                column=start_token.column,
             )
 
         return self.parse_comparison()
@@ -960,6 +1107,8 @@ class Parser:
             kind,
             variable,
             body,
+            line=token.line,
+            column=token.column,
         )
 
 
@@ -992,10 +1141,6 @@ from funny_lexer import TOKEN_SPECS, build_lexer
 # ============================================================
 
 def ast_to_dict(value):
-    """
-    Преобразует AST в обычные Python-объекты,
-    которые можно сохранить в JSON.
-    """
 
     if is_dataclass(value):
         result = {
@@ -1026,10 +1171,6 @@ def ast_to_dict(value):
 # ============================================================
 
 def ast_to_text(value, indent=0):
-    """
-    Красивый текстовый вывод AST.
-    Используется main() для просмотра результата.
-    """
 
     prefix = " " * indent
 
@@ -1074,9 +1215,6 @@ def ast_to_text(value, indent=0):
 # ============================================================
 
 def parse_source(dfa, source):
-    """
-    Запускает lexer, затем parser.
-    """
 
     tokens = dfa.tokenize(source)
 
@@ -1090,10 +1228,6 @@ def make_positive_test(
     source,
     dfa,
 ):
-    """
-    Положительный тест:
-    программа должна успешно разобраться.
-    """
 
     try:
         ast = parse_source(dfa, source)
@@ -1135,10 +1269,6 @@ def make_negative_test(
     source,
     dfa,
 ):
-    """
-    Отрицательный тест:
-    программа должна завершиться ошибкой парсинга.
-    """
 
     try:
         ast = parse_source(dfa, source)
@@ -1181,11 +1311,6 @@ def make_negative_test(
 def run_parser_tests(dfa):
     tests = []
 
-    # --------------------------------------------------------
-    # Positive test 1
-    # Простая функция и арифметика с приоритетом.
-    # --------------------------------------------------------
-
     tests.append(
         make_positive_test(
             "simple_arithmetic",
@@ -1197,11 +1322,6 @@ main() returns r:int {
             dfa,
         )
     )
-
-    # --------------------------------------------------------
-    # Positive test 2
-    # Параметры и вызов функции.
-    # --------------------------------------------------------
 
     tests.append(
         make_positive_test(
@@ -1218,11 +1338,6 @@ main() returns r:int {
             dfa,
         )
     )
-
-    # --------------------------------------------------------
-    # Positive test 3
-    # Несколько возвращаемых значений.
-    # --------------------------------------------------------
 
     tests.append(
         make_positive_test(
@@ -1245,11 +1360,6 @@ main() returns r:int {
             dfa,
         )
     )
-
-    # --------------------------------------------------------
-    # Positive test 4
-    # if / while / assert / assume.
-    # --------------------------------------------------------
 
     tests.append(
         make_positive_test(
@@ -1275,11 +1385,6 @@ main() returns r:int {
         )
     )
 
-    # --------------------------------------------------------
-    # Positive test 5
-    # Массивы.
-    # --------------------------------------------------------
-
     tests.append(
         make_positive_test(
             "array_access",
@@ -1293,11 +1398,6 @@ main(a:int[]) returns r:int {
         )
     )
 
-    # --------------------------------------------------------
-    # Negative test 1
-    # Незакрытая скобка.
-    # --------------------------------------------------------
-
     tests.append(
         make_negative_test(
             "unmatched_parenthesis",
@@ -1309,11 +1409,6 @@ main() returns r:int {
             dfa,
         )
     )
-
-    # --------------------------------------------------------
-    # Negative test 2
-    # Лишние токены после корректной функции.
-    # --------------------------------------------------------
 
     tests.append(
         make_negative_test(
@@ -1329,14 +1424,6 @@ garbage
         )
     )
 
-    # --------------------------------------------------------
-    # Negative test 3
-    # Неправильный оператор в выражении.
-    #
-    # "==" является оператором сравнения и не может
-    # использоваться внутри обычного арифметического expr.
-    # --------------------------------------------------------
-
     tests.append(
         make_negative_test(
             "wrong_operator",
@@ -1348,11 +1435,6 @@ main() returns r:int {
             dfa,
         )
     )
-
-    # --------------------------------------------------------
-    # Negative test 4
-    # Пустой ввод.
-    # --------------------------------------------------------
 
     tests.append(
         make_negative_test(

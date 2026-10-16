@@ -1,0 +1,1749 @@
+{
+  "tests_total": 12,
+  "tests_passed": 12,
+  "tests_failed": 0,
+  "status": "PASS",
+  "tests": [
+    {
+      "name": "valid_arithmetic_and_call",
+      "input": "add(a:int, b:int) returns r:int { r = a + b; }\nmain() returns r:int { r = add(2, 3); }",
+      "expected": "PASS",
+      "actual": "PASS",
+      "errors": [],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "add",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 5,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 7,
+                  "name": "int",
+                  "is_array": false
+                }
+              },
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 12,
+                "name": "b",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 14,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 27,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 29,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 33,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 35,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 35,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "BinaryOp",
+                    "line": 1,
+                    "column": 41,
+                    "operator": "+",
+                    "left": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 39,
+                      "name": "a",
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 43,
+                      "name": "b",
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "node": "Function",
+            "line": 2,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 2,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 2,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 2,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 2,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 24,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 2,
+                    "column": 28,
+                    "name": "add",
+                    "arguments": [
+                      {
+                        "node": "IntLiteral",
+                        "line": 2,
+                        "column": 32,
+                        "value": 2,
+                        "inferred_type": "int"
+                      },
+                      {
+                        "node": "IntLiteral",
+                        "line": 2,
+                        "column": 35,
+                        "value": 3,
+                        "inferred_type": "int"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "a"
+        },
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "b"
+        },
+        {
+          "node": "BinaryOp",
+          "type": "int",
+          "value": "+"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "2"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "3"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "valid_inferred_locals",
+      "input": "split(x:int) returns a:int, b:int { a = x / 2; b = x - a; }\nmain() returns r:int { p, q = split(9); r = p + q; }",
+      "expected": "PASS",
+      "actual": "PASS",
+      "errors": [],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "split",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 7,
+                "name": "x",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 9,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 22,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 24,
+                  "name": "int",
+                  "is_array": false
+                }
+              },
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 29,
+                "name": "b",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 31,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 35,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 37,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 37,
+                      "name": "a",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "BinaryOp",
+                    "line": 1,
+                    "column": 43,
+                    "operator": "/",
+                    "left": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 41,
+                      "name": "x",
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "IntLiteral",
+                      "line": 1,
+                      "column": 45,
+                      "value": 2,
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                },
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 48,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 48,
+                      "name": "b",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "BinaryOp",
+                    "line": 1,
+                    "column": 54,
+                    "operator": "-",
+                    "left": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 52,
+                      "name": "x",
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 56,
+                      "name": "a",
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "node": "Function",
+            "line": 2,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 2,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 2,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 2,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 2,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 24,
+                      "name": "p",
+                      "inferred_type": "int"
+                    },
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 27,
+                      "name": "q",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 2,
+                    "column": 31,
+                    "name": "split",
+                    "arguments": [
+                      {
+                        "node": "IntLiteral",
+                        "line": 2,
+                        "column": 37,
+                        "value": 9,
+                        "inferred_type": "int"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "node": "Assignment",
+                  "line": 2,
+                  "column": 41,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 41,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "BinaryOp",
+                    "line": 2,
+                    "column": 47,
+                    "operator": "+",
+                    "left": {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 45,
+                      "name": "p",
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 49,
+                      "name": "q",
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "x"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "2"
+        },
+        {
+          "node": "BinaryOp",
+          "type": "int",
+          "value": "/"
+        },
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "x"
+        },
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "a"
+        },
+        {
+          "node": "BinaryOp",
+          "type": "int",
+          "value": "-"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "9"
+        },
+        {
+          "variable": "p",
+          "inferred_type": "int"
+        },
+        {
+          "variable": "q",
+          "inferred_type": "int"
+        },
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "p"
+        },
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "q"
+        },
+        {
+          "node": "BinaryOp",
+          "type": "int",
+          "value": "+"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "unknown_variable",
+      "input": "main() returns r:int { r = missing + 1; }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "UNKNOWN_NAME",
+          "message": "unknown name 'missing'",
+          "line": 1,
+          "column": 28
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 24,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "BinaryOp",
+                    "line": 1,
+                    "column": 36,
+                    "operator": "+",
+                    "left": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 28,
+                      "name": "missing",
+                      "inferred_type": "<unknown>"
+                    },
+                    "right": {
+                      "node": "IntLiteral",
+                      "line": 1,
+                      "column": 38,
+                      "value": 1,
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "<unknown>",
+          "value": "missing"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "1"
+        },
+        {
+          "node": "BinaryOp",
+          "type": "int",
+          "value": "+"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "duplicate_parameter",
+      "input": "bad(a:int, a:int) returns r:int { r = a; }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "DUPLICATE_NAME",
+          "message": "'a' is declared more than once in the same scope",
+          "line": 1,
+          "column": 12
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "bad",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 5,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 7,
+                  "name": "int",
+                  "is_array": false
+                }
+              },
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 12,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 14,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 27,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 29,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 33,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 35,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 35,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "Variable",
+                    "line": 1,
+                    "column": 39,
+                    "name": "a",
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "a"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "incompatible_assignment",
+      "input": "main(a:int[]) returns r:int { r = a; }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "TYPE_MISMATCH",
+          "message": "cannot assign 'int[]' to 'r' of type 'int'",
+          "line": 1,
+          "column": 31
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 6,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 8,
+                  "name": "int",
+                  "is_array": true
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 23,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 25,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 29,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 31,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 31,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "Variable",
+                    "line": 1,
+                    "column": 35,
+                    "name": "a",
+                    "inferred_type": "int[]"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int[]",
+          "value": "a"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_argument_count",
+      "input": "one(a:int) returns r:int { r = a; }\nmain() returns r:int { r = one(); }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "ARGUMENT_COUNT_MISMATCH",
+          "message": "function 'one' expects 1 argument(s), got 0",
+          "line": 2,
+          "column": 28
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "one",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 5,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 7,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 20,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 22,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 26,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 28,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 28,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "Variable",
+                    "line": 1,
+                    "column": 32,
+                    "name": "a",
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "node": "Function",
+            "line": 2,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 2,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 2,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 2,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 2,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 24,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 2,
+                    "column": 28,
+                    "name": "one",
+                    "arguments": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "a"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_argument_type",
+      "input": "one(a:int) returns r:int { r = a; }\nmain(a:int[]) returns r:int { r = one(a); }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "ARGUMENT_TYPE_MISMATCH",
+          "message": "argument 1 of 'one' must have type 'int', got 'int[]'",
+          "line": 2,
+          "column": 35
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "one",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 5,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 7,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 20,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 22,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 26,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 28,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 28,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "Variable",
+                    "line": 1,
+                    "column": 32,
+                    "name": "a",
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "node": "Function",
+            "line": 2,
+            "column": 1,
+            "name": "main",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 2,
+                "column": 6,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 2,
+                  "column": 8,
+                  "name": "int",
+                  "is_array": true
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 2,
+                "column": 23,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 2,
+                  "column": 25,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 2,
+              "column": 29,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 2,
+                  "column": 31,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 2,
+                      "column": 31,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 2,
+                    "column": 35,
+                    "name": "one",
+                    "arguments": [
+                      {
+                        "node": "Variable",
+                        "line": 2,
+                        "column": 39,
+                        "name": "a",
+                        "inferred_type": "int[]"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "Variable",
+          "type": "int",
+          "value": "a"
+        },
+        {
+          "node": "Variable",
+          "type": "int[]",
+          "value": "a"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "unknown_function",
+      "input": "main() returns r:int { r = nope(1); }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "UNKNOWN_FUNCTION",
+          "message": "unknown function 'nope'",
+          "line": 1,
+          "column": 28
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 24,
+                      "name": "r"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 1,
+                    "column": 28,
+                    "name": "nope",
+                    "arguments": [
+                      {
+                        "node": "IntLiteral",
+                        "line": 1,
+                        "column": 33,
+                        "value": 1,
+                        "inferred_type": "int"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "1"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_condition_operand_types",
+      "input": "main(a:int[]) returns r:int { if (1 == a) { r = 2; } }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "TYPE_MISMATCH",
+          "message": "cannot compare 'int' with 'int[]'",
+          "line": 1,
+          "column": 35
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 6,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 8,
+                  "name": "int",
+                  "is_array": true
+                }
+              }
+            ],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 23,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 25,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 29,
+              "statements": [
+                {
+                  "node": "IfStatement",
+                  "line": 1,
+                  "column": 31,
+                  "condition": {
+                    "node": "Comparison",
+                    "line": 1,
+                    "column": 35,
+                    "operator": "==",
+                    "left": {
+                      "node": "IntLiteral",
+                      "line": 1,
+                      "column": 35,
+                      "value": 1,
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 40,
+                      "name": "a",
+                      "inferred_type": "int[]"
+                    },
+                    "inferred_type": "bool"
+                  },
+                  "then_branch": {
+                    "node": "Block",
+                    "line": 1,
+                    "column": 43,
+                    "statements": [
+                      {
+                        "node": "Assignment",
+                        "line": 1,
+                        "column": 45,
+                        "targets": [
+                          {
+                            "node": "Variable",
+                            "line": 1,
+                            "column": 45,
+                            "name": "r",
+                            "inferred_type": "int"
+                          }
+                        ],
+                        "value": {
+                          "node": "IntLiteral",
+                          "line": 1,
+                          "column": 49,
+                          "value": 2,
+                          "inferred_type": "int"
+                        }
+                      }
+                    ]
+                  },
+                  "else_branch": null
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "1"
+        },
+        {
+          "node": "Variable",
+          "type": "int[]",
+          "value": "a"
+        },
+        {
+          "node": "Comparison",
+          "type": "bool",
+          "value": "=="
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "2"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "array_update_and_length",
+      "input": "main() returns r:int { a[0] = 7; r = length(a); }",
+      "expected": "PASS",
+      "actual": "PASS",
+      "errors": [],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 22,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 24,
+                  "targets": [
+                    {
+                      "node": "ArrayAccess",
+                      "line": 1,
+                      "column": 24,
+                      "array": "a",
+                      "index": {
+                        "node": "IntLiteral",
+                        "line": 1,
+                        "column": 26,
+                        "value": 0,
+                        "inferred_type": "int"
+                      },
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "IntLiteral",
+                    "line": 1,
+                    "column": 31,
+                    "value": 7,
+                    "inferred_type": "int"
+                  }
+                },
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 34,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 34,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "FunctionCall",
+                    "line": 1,
+                    "column": 38,
+                    "name": "length",
+                    "arguments": [
+                      {
+                        "node": "Variable",
+                        "line": 1,
+                        "column": 45,
+                        "name": "a",
+                        "inferred_type": "int[]"
+                      }
+                    ],
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "7"
+        },
+        {
+          "variable": "a",
+          "inferred_type": "int[]"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "0"
+        },
+        {
+          "node": "Variable",
+          "type": "int[]",
+          "value": "a"
+        },
+        {
+          "node": "FunctionCall",
+          "type": "int",
+          "value": "length"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "untyped_unused_local",
+      "input": "main() returns r:int uses temp { r = 1; }",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "errors": [
+        {
+          "code": "TYPE_INFERENCE_FAILED",
+          "message": "cannot infer a type for local variable 'temp'",
+          "line": 1,
+          "column": 27
+        }
+      ],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [
+              {
+                "node": "LocalVarDef",
+                "line": 1,
+                "column": 27,
+                "name": "temp",
+                "type": null
+              }
+            ],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 32,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 34,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 34,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "IntLiteral",
+                    "line": 1,
+                    "column": 38,
+                    "value": 1,
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "1"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "typed_array_local",
+      "input": "main() returns r:int uses a:int[] { a[0] = 7; r = a[0]; }",
+      "expected": "PASS",
+      "actual": "PASS",
+      "errors": [],
+      "annotated_ast": {
+        "node": "Program",
+        "line": 1,
+        "column": 1,
+        "functions": [
+          {
+            "node": "Function",
+            "line": 1,
+            "column": 1,
+            "name": "main",
+            "parameters": [],
+            "returns": [
+              {
+                "node": "VariableDef",
+                "line": 1,
+                "column": 16,
+                "name": "r",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 18,
+                  "name": "int",
+                  "is_array": false
+                }
+              }
+            ],
+            "requires": null,
+            "ensures": null,
+            "uses": [
+              {
+                "node": "LocalVarDef",
+                "line": 1,
+                "column": 27,
+                "name": "a",
+                "type": {
+                  "node": "Type",
+                  "line": 1,
+                  "column": 29,
+                  "name": "int",
+                  "is_array": true
+                }
+              }
+            ],
+            "body": {
+              "node": "Block",
+              "line": 1,
+              "column": 35,
+              "statements": [
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 37,
+                  "targets": [
+                    {
+                      "node": "ArrayAccess",
+                      "line": 1,
+                      "column": 37,
+                      "array": "a",
+                      "index": {
+                        "node": "IntLiteral",
+                        "line": 1,
+                        "column": 39,
+                        "value": 0,
+                        "inferred_type": "int"
+                      },
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "IntLiteral",
+                    "line": 1,
+                    "column": 44,
+                    "value": 7,
+                    "inferred_type": "int"
+                  }
+                },
+                {
+                  "node": "Assignment",
+                  "line": 1,
+                  "column": 47,
+                  "targets": [
+                    {
+                      "node": "Variable",
+                      "line": 1,
+                      "column": 47,
+                      "name": "r",
+                      "inferred_type": "int"
+                    }
+                  ],
+                  "value": {
+                    "node": "ArrayAccess",
+                    "line": 1,
+                    "column": 51,
+                    "array": "a",
+                    "index": {
+                      "node": "IntLiteral",
+                      "line": 1,
+                      "column": 53,
+                      "value": 0,
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expression_types": [
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "7"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "0"
+        },
+        {
+          "node": "IntLiteral",
+          "type": "int",
+          "value": "0"
+        },
+        {
+          "node": "ArrayAccess",
+          "type": "int",
+          "value": "ArrayAccess"
+        }
+      ],
+      "status": "PASS"
+    }
+  ]
+}
