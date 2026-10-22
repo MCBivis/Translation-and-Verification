@@ -453,10 +453,6 @@ def parse_source(source: str) -> Any:
     tokens = dfa.tokenize(source)
     parser = hw2.Parser(tokens)
     program = parser.parse()
-    # Accommodate parser versions that leave trailing tokens for the caller to check.
-    if getattr(parser, "current", None) is not None:
-        token = parser.current
-        raise hw2.ParseError(f"unexpected token {token.type} ({token.lexeme!r})", token)
     return program
 
 
