@@ -1,0 +1,275 @@
+=== IR BEFORE OPTIMIZATION ===
+
+function sum(n) returns (r):
+  entry_1: nop
+  %t1 = 2 - 2
+  i = %t1
+  b = 5
+  %t2 = 0 + b
+  %t3 = %t2 - 5
+  r = %t3
+  while_cond_2: nop
+  %t4 = 0 <= i
+  %t5 = i - 1
+  %t6 = i * %t5
+  %t7 = %t6 / 2
+  %t8 = r == %t7
+  %t9 = %t4 and %t8
+  assert %t9
+  %t10 = i < n
+  if %t10 goto while_body_3 else goto while_end_4
+  while_body_3: nop
+  %t11 = r == r
+  if %t11 goto if_then_5 else goto if_else_6
+  if_then_5: nop
+  %t12 = r + i
+  %t13 = %t12 + 0
+  r = %t13
+  goto if_end_7
+  if_else_6: nop
+  goto if_end_7
+  if_end_7: nop
+  %t14 = i + 1
+  i = %t14
+  goto while_cond_2
+  while_end_4: nop
+  return r
+
+=== IR AFTER OPTIMIZATION ===
+
+function sum(n) returns (r):
+  entry_1: nop
+  i = 0
+  r = 0
+  while_cond_2: nop
+  %t4 = 0 <= i
+  %t5 = i - 1
+  %t6 = i * %t5
+  %t7 = %t6 / 2
+  %t8 = r == %t7
+  %t9 = %t4 and %t8
+  assert %t9
+  %t10 = i < n
+  if %t10 goto while_body_3 else goto while_end_4
+  while_body_3: nop
+  goto if_then_5
+  if_then_5: nop
+  %t12 = r + i
+  %t13 = %t12
+  r = %t13
+  goto if_end_7
+  if_end_7: nop
+  %t14 = i + 1
+  i = %t14
+  goto while_cond_2
+  while_end_4: nop
+  return r
+  CFG blocks:
+    entry_1: succ=['while_cond_2'], pred=[]
+    while_cond_2: succ=['while_body_3', 'while_end_4'], pred=['entry_1', 'if_end_7']
+    while_body_3: succ=['if_then_5'], pred=['while_cond_2']
+    if_then_5: succ=['if_end_7'], pred=['while_body_3']
+    if_end_7: succ=['while_cond_2'], pred=['if_then_5']
+    while_end_4: succ=[], pred=['while_cond_2']
+
+=== METRICS ===
+{
+  "instructions_before": {
+    "sum": 33
+  },
+  "instructions_after": {
+    "sum": 26
+  },
+  "temporaries_before": {
+    "sum": 14
+  },
+  "temporaries_after": {
+    "sum": 10
+  },
+  "colors": {
+    "sum": 5
+  }
+}
+
+=== OPTIMIZATION STATS ===
+{
+  "sum": {
+    "constant_folds": 3,
+    "algebraic_simplifications": 3,
+    "dead_instructions": 5,
+    "cse_replacements": 0,
+    "unreachable_blocks": 1
+  }
+}
+
+=== REGISTER ALLOCATION: sum ===
+{
+  "live_in": {
+    "entry_1": [
+      "n"
+    ],
+    "while_cond_2": [
+      "i",
+      "n",
+      "r"
+    ],
+    "while_body_3": [
+      "i",
+      "n",
+      "r"
+    ],
+    "if_then_5": [
+      "i",
+      "n",
+      "r"
+    ],
+    "if_end_7": [
+      "i",
+      "n",
+      "r"
+    ],
+    "while_end_4": [
+      "r"
+    ]
+  },
+  "live_out": {
+    "entry_1": [
+      "i",
+      "n",
+      "r"
+    ],
+    "while_cond_2": [
+      "i",
+      "n",
+      "r"
+    ],
+    "while_body_3": [
+      "i",
+      "n",
+      "r"
+    ],
+    "if_then_5": [
+      "i",
+      "n",
+      "r"
+    ],
+    "if_end_7": [
+      "i",
+      "n",
+      "r"
+    ],
+    "while_end_4": []
+  },
+  "interference": {
+    "%t10": [
+      "i",
+      "n",
+      "r"
+    ],
+    "%t12": [
+      "i",
+      "n"
+    ],
+    "%t13": [
+      "i",
+      "n"
+    ],
+    "%t14": [
+      "n",
+      "r"
+    ],
+    "%t4": [
+      "%t5",
+      "%t6",
+      "%t7",
+      "%t8",
+      "i",
+      "n",
+      "r"
+    ],
+    "%t5": [
+      "%t4",
+      "i",
+      "n",
+      "r"
+    ],
+    "%t6": [
+      "%t4",
+      "i",
+      "n",
+      "r"
+    ],
+    "%t7": [
+      "%t4",
+      "i",
+      "n",
+      "r"
+    ],
+    "%t8": [
+      "%t4",
+      "i",
+      "n",
+      "r"
+    ],
+    "%t9": [
+      "i",
+      "n",
+      "r"
+    ],
+    "i": [
+      "%t10",
+      "%t12",
+      "%t13",
+      "%t4",
+      "%t5",
+      "%t6",
+      "%t7",
+      "%t8",
+      "%t9",
+      "n",
+      "r"
+    ],
+    "n": [
+      "%t10",
+      "%t12",
+      "%t13",
+      "%t14",
+      "%t4",
+      "%t5",
+      "%t6",
+      "%t7",
+      "%t8",
+      "%t9",
+      "i",
+      "r"
+    ],
+    "r": [
+      "%t10",
+      "%t14",
+      "%t4",
+      "%t5",
+      "%t6",
+      "%t7",
+      "%t8",
+      "%t9",
+      "i",
+      "n"
+    ]
+  },
+  "colors": {
+    "%t10": 3,
+    "%t12": 2,
+    "%t13": 2,
+    "%t14": 1,
+    "%t4": 3,
+    "%t5": 4,
+    "%t6": 4,
+    "%t7": 4,
+    "%t8": 4,
+    "%t9": 3,
+    "i": 1,
+    "n": 0,
+    "r": 2
+  },
+  "color_count": 5
+}

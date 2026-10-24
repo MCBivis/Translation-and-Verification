@@ -1,0 +1,11 @@
+sum(n:int) returns r:int {
+    i = 2 - 2;
+    b = 5;
+    r = 0 + b - 5;
+    while (i < n)
+        invariant 0 <= i and r == i * (i - 1) / 2
+    {
+        if (r == r) r = r + i + 0;
+        i = i + 1;
+    }
+}

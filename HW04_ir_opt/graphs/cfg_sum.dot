@@ -1,0 +1,15 @@
+digraph CFG {
+  node [shape=box,fontname=Courier];
+  "entry_1" [label="entry_1\lentry_1: nop\li = 0\lr = 0\l"];
+  "entry_1" -> "while_cond_2";
+  "while_cond_2" [label="while_cond_2\lwhile_cond_2: nop\l%t4 = 0 <= i\l%t5 = i - 1\l%t6 = i * %t5\l%t7 = %t6 / 2\l%t8 = r == %t7\l%t9 = %t4 and %t8\lassert %t9\l%t10 = i < n\lif %t10 goto while_body_3 else goto while_end_4\l"];
+  "while_cond_2" -> "while_body_3";
+  "while_cond_2" -> "while_end_4";
+  "while_body_3" [label="while_body_3\lwhile_body_3: nop\lgoto if_then_5\l"];
+  "while_body_3" -> "if_then_5";
+  "if_then_5" [label="if_then_5\lif_then_5: nop\l%t12 = r + i\l%t13 = %t12\lr = %t13\lgoto if_end_7\l"];
+  "if_then_5" -> "if_end_7";
+  "if_end_7" [label="if_end_7\lif_end_7: nop\l%t14 = i + 1\li = %t14\lgoto while_cond_2\l"];
+  "if_end_7" -> "while_cond_2";
+  "while_end_4" [label="while_end_4\lwhile_end_4: nop\lreturn r\l"];
+}

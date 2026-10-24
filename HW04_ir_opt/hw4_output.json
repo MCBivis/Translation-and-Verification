@@ -1,0 +1,1941 @@
+{
+  "status": "PASS",
+  "semantic_analysis": {
+    "ast": {
+      "node": "Program",
+      "line": 1,
+      "column": 1,
+      "functions": [
+        {
+          "node": "Function",
+          "line": 1,
+          "column": 1,
+          "name": "sum",
+          "parameters": [
+            {
+              "node": "VariableDef",
+              "line": 1,
+              "column": 5,
+              "name": "n",
+              "type": {
+                "node": "Type",
+                "line": 1,
+                "column": 7,
+                "name": "int",
+                "is_array": false
+              }
+            }
+          ],
+          "returns": [
+            {
+              "node": "VariableDef",
+              "line": 1,
+              "column": 20,
+              "name": "r",
+              "type": {
+                "node": "Type",
+                "line": 1,
+                "column": 22,
+                "name": "int",
+                "is_array": false
+              }
+            }
+          ],
+          "requires": null,
+          "ensures": null,
+          "uses": [],
+          "body": {
+            "node": "Block",
+            "line": 1,
+            "column": 26,
+            "statements": [
+              {
+                "node": "Assignment",
+                "line": 2,
+                "column": 5,
+                "targets": [
+                  {
+                    "node": "Variable",
+                    "line": 2,
+                    "column": 5,
+                    "name": "i",
+                    "inferred_type": "int"
+                  }
+                ],
+                "value": {
+                  "node": "BinaryOp",
+                  "line": 2,
+                  "column": 11,
+                  "operator": "-",
+                  "left": {
+                    "node": "IntLiteral",
+                    "line": 2,
+                    "column": 9,
+                    "value": 2,
+                    "inferred_type": "int"
+                  },
+                  "right": {
+                    "node": "IntLiteral",
+                    "line": 2,
+                    "column": 13,
+                    "value": 2,
+                    "inferred_type": "int"
+                  },
+                  "inferred_type": "int"
+                }
+              },
+              {
+                "node": "Assignment",
+                "line": 3,
+                "column": 5,
+                "targets": [
+                  {
+                    "node": "Variable",
+                    "line": 3,
+                    "column": 5,
+                    "name": "b",
+                    "inferred_type": "int"
+                  }
+                ],
+                "value": {
+                  "node": "IntLiteral",
+                  "line": 3,
+                  "column": 9,
+                  "value": 5,
+                  "inferred_type": "int"
+                }
+              },
+              {
+                "node": "Assignment",
+                "line": 4,
+                "column": 5,
+                "targets": [
+                  {
+                    "node": "Variable",
+                    "line": 4,
+                    "column": 5,
+                    "name": "r",
+                    "inferred_type": "int"
+                  }
+                ],
+                "value": {
+                  "node": "BinaryOp",
+                  "line": 4,
+                  "column": 15,
+                  "operator": "-",
+                  "left": {
+                    "node": "BinaryOp",
+                    "line": 4,
+                    "column": 11,
+                    "operator": "+",
+                    "left": {
+                      "node": "IntLiteral",
+                      "line": 4,
+                      "column": 9,
+                      "value": 0,
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 4,
+                      "column": 13,
+                      "name": "b",
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "int"
+                  },
+                  "right": {
+                    "node": "IntLiteral",
+                    "line": 4,
+                    "column": 17,
+                    "value": 5,
+                    "inferred_type": "int"
+                  },
+                  "inferred_type": "int"
+                }
+              },
+              {
+                "node": "WhileStatement",
+                "line": 5,
+                "column": 5,
+                "condition": {
+                  "node": "Comparison",
+                  "line": 5,
+                  "column": 12,
+                  "operator": "<",
+                  "left": {
+                    "node": "Variable",
+                    "line": 5,
+                    "column": 12,
+                    "name": "i",
+                    "inferred_type": "int"
+                  },
+                  "right": {
+                    "node": "Variable",
+                    "line": 5,
+                    "column": 16,
+                    "name": "n",
+                    "inferred_type": "int"
+                  },
+                  "inferred_type": "bool"
+                },
+                "invariant": {
+                  "node": "PredicateBinary",
+                  "line": 6,
+                  "column": 26,
+                  "operator": "and",
+                  "left": {
+                    "node": "Comparison",
+                    "line": 6,
+                    "column": 19,
+                    "operator": "<=",
+                    "left": {
+                      "node": "IntLiteral",
+                      "line": 6,
+                      "column": 19,
+                      "value": 0,
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "Variable",
+                      "line": 6,
+                      "column": 24,
+                      "name": "i",
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "bool"
+                  },
+                  "right": {
+                    "node": "Comparison",
+                    "line": 6,
+                    "column": 30,
+                    "operator": "==",
+                    "left": {
+                      "node": "Variable",
+                      "line": 6,
+                      "column": 30,
+                      "name": "r",
+                      "inferred_type": "int"
+                    },
+                    "right": {
+                      "node": "BinaryOp",
+                      "line": 6,
+                      "column": 47,
+                      "operator": "/",
+                      "left": {
+                        "node": "BinaryOp",
+                        "line": 6,
+                        "column": 37,
+                        "operator": "*",
+                        "left": {
+                          "node": "Variable",
+                          "line": 6,
+                          "column": 35,
+                          "name": "i",
+                          "inferred_type": "int"
+                        },
+                        "right": {
+                          "node": "BinaryOp",
+                          "line": 6,
+                          "column": 42,
+                          "operator": "-",
+                          "left": {
+                            "node": "Variable",
+                            "line": 6,
+                            "column": 40,
+                            "name": "i",
+                            "inferred_type": "int"
+                          },
+                          "right": {
+                            "node": "IntLiteral",
+                            "line": 6,
+                            "column": 44,
+                            "value": 1,
+                            "inferred_type": "int"
+                          },
+                          "inferred_type": "int"
+                        },
+                        "inferred_type": "int"
+                      },
+                      "right": {
+                        "node": "IntLiteral",
+                        "line": 6,
+                        "column": 49,
+                        "value": 2,
+                        "inferred_type": "int"
+                      },
+                      "inferred_type": "int"
+                    },
+                    "inferred_type": "bool"
+                  },
+                  "inferred_type": "bool"
+                },
+                "body": {
+                  "node": "Block",
+                  "line": 7,
+                  "column": 5,
+                  "statements": [
+                    {
+                      "node": "IfStatement",
+                      "line": 8,
+                      "column": 9,
+                      "condition": {
+                        "node": "Comparison",
+                        "line": 8,
+                        "column": 13,
+                        "operator": "==",
+                        "left": {
+                          "node": "Variable",
+                          "line": 8,
+                          "column": 13,
+                          "name": "r",
+                          "inferred_type": "int"
+                        },
+                        "right": {
+                          "node": "Variable",
+                          "line": 8,
+                          "column": 18,
+                          "name": "r",
+                          "inferred_type": "int"
+                        },
+                        "inferred_type": "bool"
+                      },
+                      "then_branch": {
+                        "node": "Assignment",
+                        "line": 8,
+                        "column": 21,
+                        "targets": [
+                          {
+                            "node": "Variable",
+                            "line": 8,
+                            "column": 21,
+                            "name": "r",
+                            "inferred_type": "int"
+                          }
+                        ],
+                        "value": {
+                          "node": "BinaryOp",
+                          "line": 8,
+                          "column": 31,
+                          "operator": "+",
+                          "left": {
+                            "node": "BinaryOp",
+                            "line": 8,
+                            "column": 27,
+                            "operator": "+",
+                            "left": {
+                              "node": "Variable",
+                              "line": 8,
+                              "column": 25,
+                              "name": "r",
+                              "inferred_type": "int"
+                            },
+                            "right": {
+                              "node": "Variable",
+                              "line": 8,
+                              "column": 29,
+                              "name": "i",
+                              "inferred_type": "int"
+                            },
+                            "inferred_type": "int"
+                          },
+                          "right": {
+                            "node": "IntLiteral",
+                            "line": 8,
+                            "column": 33,
+                            "value": 0,
+                            "inferred_type": "int"
+                          },
+                          "inferred_type": "int"
+                        }
+                      },
+                      "else_branch": null
+                    },
+                    {
+                      "node": "Assignment",
+                      "line": 9,
+                      "column": 9,
+                      "targets": [
+                        {
+                          "node": "Variable",
+                          "line": 9,
+                          "column": 9,
+                          "name": "i",
+                          "inferred_type": "int"
+                        }
+                      ],
+                      "value": {
+                        "node": "BinaryOp",
+                        "line": 9,
+                        "column": 15,
+                        "operator": "+",
+                        "left": {
+                          "node": "Variable",
+                          "line": 9,
+                          "column": 13,
+                          "name": "i",
+                          "inferred_type": "int"
+                        },
+                        "right": {
+                          "node": "IntLiteral",
+                          "line": 9,
+                          "column": 17,
+                          "value": 1,
+                          "inferred_type": "int"
+                        },
+                        "inferred_type": "int"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "function_signatures": {
+      "sum": {
+        "parameters": [
+          "int"
+        ],
+        "returns": [
+          "int"
+        ]
+      }
+    },
+    "inferred_locals": [
+      {
+        "name": "i",
+        "type": "int",
+        "kind": "inferred_local"
+      },
+      {
+        "name": "b",
+        "type": "int",
+        "kind": "inferred_local"
+      }
+    ],
+    "expression_types": [
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "2"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "2"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "-"
+      },
+      {
+        "variable": "i",
+        "inferred_type": "int"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "5"
+      },
+      {
+        "variable": "b",
+        "inferred_type": "int"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "0"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "b"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "+"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "5"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "-"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "n"
+      },
+      {
+        "node": "Comparison",
+        "type": "bool",
+        "value": "<"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "0"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "Comparison",
+        "type": "bool",
+        "value": "<="
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "r"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "1"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "-"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "*"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "2"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "/"
+      },
+      {
+        "node": "Comparison",
+        "type": "bool",
+        "value": "=="
+      },
+      {
+        "node": "PredicateBinary",
+        "type": "bool",
+        "value": "and"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "r"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "r"
+      },
+      {
+        "node": "Comparison",
+        "type": "bool",
+        "value": "=="
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "r"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "+"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "0"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "+"
+      },
+      {
+        "node": "Variable",
+        "type": "int",
+        "value": "i"
+      },
+      {
+        "node": "IntLiteral",
+        "type": "int",
+        "value": "1"
+      },
+      {
+        "node": "BinaryOp",
+        "type": "int",
+        "value": "+"
+      }
+    ],
+    "errors": [],
+    "status": "PASS"
+  },
+  "ir_before": {
+    "format": "Funny-TAC-v1",
+    "functions": [
+      {
+        "name": "sum",
+        "parameters": [
+          "n"
+        ],
+        "returns": [
+          "r"
+        ],
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "entry_1"
+          },
+          {
+            "op": "sub",
+            "dst": "%t1",
+            "args": [
+              2,
+              2
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t1"
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "b",
+            "args": [
+              5
+            ],
+            "line": 3
+          },
+          {
+            "op": "add",
+            "dst": "%t2",
+            "args": [
+              0,
+              "b"
+            ],
+            "line": 4
+          },
+          {
+            "op": "sub",
+            "dst": "%t3",
+            "args": [
+              "%t2",
+              5
+            ],
+            "line": 4
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t3"
+            ],
+            "line": 4
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_cond_2"
+          },
+          {
+            "op": "le",
+            "dst": "%t4",
+            "args": [
+              0,
+              "i"
+            ],
+            "line": 6
+          },
+          {
+            "op": "sub",
+            "dst": "%t5",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 6
+          },
+          {
+            "op": "mul",
+            "dst": "%t6",
+            "args": [
+              "i",
+              "%t5"
+            ],
+            "line": 6
+          },
+          {
+            "op": "div",
+            "dst": "%t7",
+            "args": [
+              "%t6",
+              2
+            ],
+            "line": 6
+          },
+          {
+            "op": "eq",
+            "dst": "%t8",
+            "args": [
+              "r",
+              "%t7"
+            ],
+            "line": 6
+          },
+          {
+            "op": "and",
+            "dst": "%t9",
+            "args": [
+              "%t4",
+              "%t8"
+            ],
+            "line": 6
+          },
+          {
+            "op": "assert",
+            "dst": null,
+            "args": [
+              "%t9"
+            ],
+            "line": 6
+          },
+          {
+            "op": "lt",
+            "dst": "%t10",
+            "args": [
+              "i",
+              "n"
+            ],
+            "line": 5
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t10",
+              "while_body_3",
+              "while_end_4"
+            ],
+            "line": 5
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_body_3"
+          },
+          {
+            "op": "eq",
+            "dst": "%t11",
+            "args": [
+              "r",
+              "r"
+            ],
+            "line": 8
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t11",
+              "if_then_5",
+              "if_else_6"
+            ],
+            "line": 8
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_then_5"
+          },
+          {
+            "op": "add",
+            "dst": "%t12",
+            "args": [
+              "r",
+              "i"
+            ],
+            "line": 8
+          },
+          {
+            "op": "add",
+            "dst": "%t13",
+            "args": [
+              "%t12",
+              0
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t13"
+            ],
+            "line": 8
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_else_6"
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_end_7"
+          },
+          {
+            "op": "add",
+            "dst": "%t14",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 9
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t14"
+            ],
+            "line": 9
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "while_cond_2"
+            ],
+            "line": 5
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_end_4"
+          },
+          {
+            "op": "return",
+            "dst": null,
+            "args": [
+              "r"
+            ],
+            "line": 1
+          }
+        ]
+      }
+    ]
+  },
+  "ir_after": {
+    "format": "Funny-TAC-v1",
+    "functions": [
+      {
+        "name": "sum",
+        "parameters": [
+          "n"
+        ],
+        "returns": [
+          "r"
+        ],
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "entry_1"
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              0
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              0
+            ],
+            "line": 4
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_cond_2"
+          },
+          {
+            "op": "le",
+            "dst": "%t4",
+            "args": [
+              0,
+              "i"
+            ],
+            "line": 6
+          },
+          {
+            "op": "sub",
+            "dst": "%t5",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 6
+          },
+          {
+            "op": "mul",
+            "dst": "%t6",
+            "args": [
+              "i",
+              "%t5"
+            ],
+            "line": 6
+          },
+          {
+            "op": "div",
+            "dst": "%t7",
+            "args": [
+              "%t6",
+              2
+            ],
+            "line": 6
+          },
+          {
+            "op": "eq",
+            "dst": "%t8",
+            "args": [
+              "r",
+              "%t7"
+            ],
+            "line": 6
+          },
+          {
+            "op": "and",
+            "dst": "%t9",
+            "args": [
+              "%t4",
+              "%t8"
+            ],
+            "line": 6
+          },
+          {
+            "op": "assert",
+            "dst": null,
+            "args": [
+              "%t9"
+            ],
+            "line": 6
+          },
+          {
+            "op": "lt",
+            "dst": "%t10",
+            "args": [
+              "i",
+              "n"
+            ],
+            "line": 5
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t10",
+              "while_body_3",
+              "while_end_4"
+            ],
+            "line": 5
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_body_3"
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_then_5"
+            ],
+            "line": 8
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_then_5"
+          },
+          {
+            "op": "add",
+            "dst": "%t12",
+            "args": [
+              "r",
+              "i"
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "%t13",
+            "args": [
+              "%t12"
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t13"
+            ],
+            "line": 8
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_end_7"
+          },
+          {
+            "op": "add",
+            "dst": "%t14",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 9
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t14"
+            ],
+            "line": 9
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "while_cond_2"
+            ],
+            "line": 5
+          },
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_end_4"
+          },
+          {
+            "op": "return",
+            "dst": null,
+            "args": [
+              "r"
+            ],
+            "line": 1
+          }
+        ]
+      }
+    ]
+  },
+  "cfg_before": {
+    "sum": [
+      {
+        "name": "entry_1",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "entry_1"
+          },
+          {
+            "op": "sub",
+            "dst": "%t1",
+            "args": [
+              2,
+              2
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t1"
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "b",
+            "args": [
+              5
+            ],
+            "line": 3
+          },
+          {
+            "op": "add",
+            "dst": "%t2",
+            "args": [
+              0,
+              "b"
+            ],
+            "line": 4
+          },
+          {
+            "op": "sub",
+            "dst": "%t3",
+            "args": [
+              "%t2",
+              5
+            ],
+            "line": 4
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t3"
+            ],
+            "line": 4
+          }
+        ],
+        "successors": [
+          "while_cond_2"
+        ],
+        "predecessors": []
+      },
+      {
+        "name": "while_cond_2",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_cond_2"
+          },
+          {
+            "op": "le",
+            "dst": "%t4",
+            "args": [
+              0,
+              "i"
+            ],
+            "line": 6
+          },
+          {
+            "op": "sub",
+            "dst": "%t5",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 6
+          },
+          {
+            "op": "mul",
+            "dst": "%t6",
+            "args": [
+              "i",
+              "%t5"
+            ],
+            "line": 6
+          },
+          {
+            "op": "div",
+            "dst": "%t7",
+            "args": [
+              "%t6",
+              2
+            ],
+            "line": 6
+          },
+          {
+            "op": "eq",
+            "dst": "%t8",
+            "args": [
+              "r",
+              "%t7"
+            ],
+            "line": 6
+          },
+          {
+            "op": "and",
+            "dst": "%t9",
+            "args": [
+              "%t4",
+              "%t8"
+            ],
+            "line": 6
+          },
+          {
+            "op": "assert",
+            "dst": null,
+            "args": [
+              "%t9"
+            ],
+            "line": 6
+          },
+          {
+            "op": "lt",
+            "dst": "%t10",
+            "args": [
+              "i",
+              "n"
+            ],
+            "line": 5
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t10",
+              "while_body_3",
+              "while_end_4"
+            ],
+            "line": 5
+          }
+        ],
+        "successors": [
+          "while_body_3",
+          "while_end_4"
+        ],
+        "predecessors": [
+          "entry_1",
+          "if_end_7"
+        ]
+      },
+      {
+        "name": "while_body_3",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_body_3"
+          },
+          {
+            "op": "eq",
+            "dst": "%t11",
+            "args": [
+              "r",
+              "r"
+            ],
+            "line": 8
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t11",
+              "if_then_5",
+              "if_else_6"
+            ],
+            "line": 8
+          }
+        ],
+        "successors": [
+          "if_then_5",
+          "if_else_6"
+        ],
+        "predecessors": [
+          "while_cond_2"
+        ]
+      },
+      {
+        "name": "if_then_5",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_then_5"
+          },
+          {
+            "op": "add",
+            "dst": "%t12",
+            "args": [
+              "r",
+              "i"
+            ],
+            "line": 8
+          },
+          {
+            "op": "add",
+            "dst": "%t13",
+            "args": [
+              "%t12",
+              0
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t13"
+            ],
+            "line": 8
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          }
+        ],
+        "successors": [
+          "if_end_7"
+        ],
+        "predecessors": [
+          "while_body_3"
+        ]
+      },
+      {
+        "name": "if_else_6",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_else_6"
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          }
+        ],
+        "successors": [
+          "if_end_7"
+        ],
+        "predecessors": [
+          "while_body_3"
+        ]
+      },
+      {
+        "name": "if_end_7",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_end_7"
+          },
+          {
+            "op": "add",
+            "dst": "%t14",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 9
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t14"
+            ],
+            "line": 9
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "while_cond_2"
+            ],
+            "line": 5
+          }
+        ],
+        "successors": [
+          "while_cond_2"
+        ],
+        "predecessors": [
+          "if_then_5",
+          "if_else_6"
+        ]
+      },
+      {
+        "name": "while_end_4",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_end_4"
+          },
+          {
+            "op": "return",
+            "dst": null,
+            "args": [
+              "r"
+            ],
+            "line": 1
+          }
+        ],
+        "successors": [],
+        "predecessors": [
+          "while_cond_2"
+        ]
+      }
+    ]
+  },
+  "cfg_after": {
+    "sum": [
+      {
+        "name": "entry_1",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "entry_1"
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              0
+            ],
+            "line": 2
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              0
+            ],
+            "line": 4
+          }
+        ],
+        "successors": [
+          "while_cond_2"
+        ],
+        "predecessors": []
+      },
+      {
+        "name": "while_cond_2",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_cond_2"
+          },
+          {
+            "op": "le",
+            "dst": "%t4",
+            "args": [
+              0,
+              "i"
+            ],
+            "line": 6
+          },
+          {
+            "op": "sub",
+            "dst": "%t5",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 6
+          },
+          {
+            "op": "mul",
+            "dst": "%t6",
+            "args": [
+              "i",
+              "%t5"
+            ],
+            "line": 6
+          },
+          {
+            "op": "div",
+            "dst": "%t7",
+            "args": [
+              "%t6",
+              2
+            ],
+            "line": 6
+          },
+          {
+            "op": "eq",
+            "dst": "%t8",
+            "args": [
+              "r",
+              "%t7"
+            ],
+            "line": 6
+          },
+          {
+            "op": "and",
+            "dst": "%t9",
+            "args": [
+              "%t4",
+              "%t8"
+            ],
+            "line": 6
+          },
+          {
+            "op": "assert",
+            "dst": null,
+            "args": [
+              "%t9"
+            ],
+            "line": 6
+          },
+          {
+            "op": "lt",
+            "dst": "%t10",
+            "args": [
+              "i",
+              "n"
+            ],
+            "line": 5
+          },
+          {
+            "op": "br",
+            "dst": null,
+            "args": [
+              "%t10",
+              "while_body_3",
+              "while_end_4"
+            ],
+            "line": 5
+          }
+        ],
+        "successors": [
+          "while_body_3",
+          "while_end_4"
+        ],
+        "predecessors": [
+          "entry_1",
+          "if_end_7"
+        ]
+      },
+      {
+        "name": "while_body_3",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_body_3"
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_then_5"
+            ],
+            "line": 8
+          }
+        ],
+        "successors": [
+          "if_then_5"
+        ],
+        "predecessors": [
+          "while_cond_2"
+        ]
+      },
+      {
+        "name": "if_then_5",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_then_5"
+          },
+          {
+            "op": "add",
+            "dst": "%t12",
+            "args": [
+              "r",
+              "i"
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "%t13",
+            "args": [
+              "%t12"
+            ],
+            "line": 8
+          },
+          {
+            "op": "mov",
+            "dst": "r",
+            "args": [
+              "%t13"
+            ],
+            "line": 8
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "if_end_7"
+            ],
+            "line": 8
+          }
+        ],
+        "successors": [
+          "if_end_7"
+        ],
+        "predecessors": [
+          "while_body_3"
+        ]
+      },
+      {
+        "name": "if_end_7",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "if_end_7"
+          },
+          {
+            "op": "add",
+            "dst": "%t14",
+            "args": [
+              "i",
+              1
+            ],
+            "line": 9
+          },
+          {
+            "op": "mov",
+            "dst": "i",
+            "args": [
+              "%t14"
+            ],
+            "line": 9
+          },
+          {
+            "op": "jmp",
+            "dst": null,
+            "args": [
+              "while_cond_2"
+            ],
+            "line": 5
+          }
+        ],
+        "successors": [
+          "while_cond_2"
+        ],
+        "predecessors": [
+          "if_then_5"
+        ]
+      },
+      {
+        "name": "while_end_4",
+        "instructions": [
+          {
+            "op": "nop",
+            "dst": null,
+            "args": [],
+            "label": "while_end_4"
+          },
+          {
+            "op": "return",
+            "dst": null,
+            "args": [
+              "r"
+            ],
+            "line": 1
+          }
+        ],
+        "successors": [],
+        "predecessors": [
+          "while_cond_2"
+        ]
+      }
+    ]
+  },
+  "optimization_stats": {
+    "sum": {
+      "constant_folds": 3,
+      "algebraic_simplifications": 3,
+      "dead_instructions": 5,
+      "cse_replacements": 0,
+      "unreachable_blocks": 1
+    }
+  },
+  "register_allocation": {
+    "sum": {
+      "live_in": {
+        "entry_1": [
+          "n"
+        ],
+        "while_cond_2": [
+          "i",
+          "n",
+          "r"
+        ],
+        "while_body_3": [
+          "i",
+          "n",
+          "r"
+        ],
+        "if_then_5": [
+          "i",
+          "n",
+          "r"
+        ],
+        "if_end_7": [
+          "i",
+          "n",
+          "r"
+        ],
+        "while_end_4": [
+          "r"
+        ]
+      },
+      "live_out": {
+        "entry_1": [
+          "i",
+          "n",
+          "r"
+        ],
+        "while_cond_2": [
+          "i",
+          "n",
+          "r"
+        ],
+        "while_body_3": [
+          "i",
+          "n",
+          "r"
+        ],
+        "if_then_5": [
+          "i",
+          "n",
+          "r"
+        ],
+        "if_end_7": [
+          "i",
+          "n",
+          "r"
+        ],
+        "while_end_4": []
+      },
+      "interference": {
+        "%t10": [
+          "i",
+          "n",
+          "r"
+        ],
+        "%t12": [
+          "i",
+          "n"
+        ],
+        "%t13": [
+          "i",
+          "n"
+        ],
+        "%t14": [
+          "n",
+          "r"
+        ],
+        "%t4": [
+          "%t5",
+          "%t6",
+          "%t7",
+          "%t8",
+          "i",
+          "n",
+          "r"
+        ],
+        "%t5": [
+          "%t4",
+          "i",
+          "n",
+          "r"
+        ],
+        "%t6": [
+          "%t4",
+          "i",
+          "n",
+          "r"
+        ],
+        "%t7": [
+          "%t4",
+          "i",
+          "n",
+          "r"
+        ],
+        "%t8": [
+          "%t4",
+          "i",
+          "n",
+          "r"
+        ],
+        "%t9": [
+          "i",
+          "n",
+          "r"
+        ],
+        "i": [
+          "%t10",
+          "%t12",
+          "%t13",
+          "%t4",
+          "%t5",
+          "%t6",
+          "%t7",
+          "%t8",
+          "%t9",
+          "n",
+          "r"
+        ],
+        "n": [
+          "%t10",
+          "%t12",
+          "%t13",
+          "%t14",
+          "%t4",
+          "%t5",
+          "%t6",
+          "%t7",
+          "%t8",
+          "%t9",
+          "i",
+          "r"
+        ],
+        "r": [
+          "%t10",
+          "%t14",
+          "%t4",
+          "%t5",
+          "%t6",
+          "%t7",
+          "%t8",
+          "%t9",
+          "i",
+          "n"
+        ]
+      },
+      "colors": {
+        "%t10": 3,
+        "%t12": 2,
+        "%t13": 2,
+        "%t14": 1,
+        "%t4": 3,
+        "%t5": 4,
+        "%t6": 4,
+        "%t7": 4,
+        "%t8": 4,
+        "%t9": 3,
+        "i": 1,
+        "n": 0,
+        "r": 2
+      },
+      "color_count": 5
+    }
+  },
+  "metrics": {
+    "instructions_before": {
+      "sum": 33
+    },
+    "instructions_after": {
+      "sum": 26
+    },
+    "temporaries_before": {
+      "sum": 14
+    },
+    "temporaries_after": {
+      "sum": 10
+    },
+    "colors": {
+      "sum": 5
+    }
+  }
+}
