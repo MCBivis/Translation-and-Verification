@@ -326,8 +326,9 @@ def eval_op(op, args):
     return None
 
 
-def optimize_block(block: BasicBlock, *, const_prop=True, algebra=True, dce=True, cse=False) -> dict[str, int]:
-    stats = {"constant_folds": 0, "algebraic_simplifications": 0, "dead_instructions": 0, "cse_replacements": 0}
+def optimize_block(block: BasicBlock, *, const_prop=True, algebra=True, cse=False) -> dict[str, int]:
+    """Apply optimizations that only need information from this basic block."""
+    stats = {"constant_folds": 0, "algebraic_simplifications": 0, "cse_replacements": 0}
     constants: dict[str, Any] = {}
     rewritten: list[Instruction] = []
 
@@ -440,20 +441,6 @@ def optimize_block(block: BasicBlock, *, const_prop=True, algebra=True, dce=True
             elif ins.op in ("call", "call_multi", "store"):
                 available.clear()
 
-    if dce:
-        live: set[str] = set()
-        kept = []
-        for ins in reversed(rewritten):
-            uses = uses_of(ins)
-            dsts = [ins.dst] if isinstance(ins.dst, str) else (ins.dst or [])
-            side_effect = ins.op not in PURE_OPS or ins.op in {"call", "call_multi", "store", "assert", "assume", "br", "jmp", "return", "nop"}
-            if dsts and all(d not in live for d in dsts) and not side_effect:
-                stats["dead_instructions"] += 1
-                continue
-            for d in dsts: live.discard(d)
-            live.update(uses)
-            kept.append(ins)
-        rewritten = list(reversed(kept))
     block.instructions = rewritten
     return stats
 
@@ -515,69 +502,103 @@ def _remove_unreachable_blocks(blocks: list[BasicBlock]) -> int:
     return removed
 
 
-def optimize_cfg(blocks, **options):
-    """Run conservative block-local optimizations, prune unreachable CFG blocks,
-    then perform liveness-based dead-code elimination across block boundaries.
-    """
-    totals = {"constant_folds": 0, "algebraic_simplifications": 0,
-              "dead_instructions": 0, "cse_replacements": 0,
-              "unreachable_blocks": 0}
-    options = dict(options)
-    do_dce = options.pop("dce", True)
+def _eliminate_dead_code(blocks: list[BasicBlock]) -> int:
+    """Remove dead pure instructions using liveness across the whole CFG."""
+    if not blocks:
+        return 0
 
-    # Iterate because one round can turn a condition into a constant, making a
-    # branch unreachable and exposing more dead definitions in the next round.
-    for _ in range(4):
-        before_shape = [(b.name, tuple((i.op, i.dst, repr(i.args)) for i in b.instructions)) for b in blocks]
-        for block in blocks:
-            stats = optimize_block(block, dce=False, **options)
-            for key, value in stats.items(): totals[key] += value
-        totals["unreachable_blocks"] += _remove_unreachable_blocks(blocks)
-        after_shape = [(b.name, tuple((i.op, i.dst, repr(i.args)) for i in b.instructions)) for b in blocks]
-        if before_shape == after_shape: break
+    by_name = {block.name: block for block in blocks}
+    use: dict[str, set[str]] = {}
+    defs: dict[str, set[str]] = {}
 
-    if not do_dce or not blocks:
-        return totals
-
-    use, defs = {}, {}
-    by_name = {b.name: b for b in blocks}
     for block in blocks:
         used, defined = set(), set()
         for ins in block.instructions:
-            for name in uses_of(ins):
-                if name not in defined: used.add(name)
-            if isinstance(ins.dst, str): defined.add(ins.dst)
-            elif isinstance(ins.dst, list): defined.update(x for x in ins.dst if isinstance(x, str))
-        use[block.name], defs[block.name] = used, defined
+            used.update(name for name in uses_of(ins) if name not in defined)
+            if isinstance(ins.dst, str):
+                defined.add(ins.dst)
+            elif isinstance(ins.dst, list):
+                defined.update(dst for dst in ins.dst if isinstance(dst, str))
+        use[block.name] = used
+        defs[block.name] = defined
 
-    live_in = {b.name: set() for b in blocks}
-    live_out = {b.name: set() for b in blocks}
+    live_in = {block.name: set() for block in blocks}
+    live_out = {block.name: set() for block in blocks}
     changed = True
     while changed:
         changed = False
         for block in reversed(blocks):
-            out = set().union(*(live_in[s] for s in block.successors if s in by_name))
+            out = set().union(*(
+                live_in[successor]
+                for successor in block.successors
+                if successor in by_name
+            ))
             inn = use[block.name] | (out - defs[block.name])
             if out != live_out[block.name] or inn != live_in[block.name]:
-                live_out[block.name], live_in[block.name] = out, inn
+                live_out[block.name] = out
+                live_in[block.name] = inn
                 changed = True
 
+    removed = 0
     for block in blocks:
         live = set(live_out[block.name])
         kept = []
         for ins in reversed(block.instructions):
             uses = uses_of(ins)
             dsts = [ins.dst] if isinstance(ins.dst, str) else (ins.dst or [])
-            side_effect = ins.op not in PURE_OPS or ins.op in {"call", "call_multi", "store", "assert", "assume", "br", "jmp", "return", "nop"}
-            if dsts and all(d not in live for d in dsts) and not side_effect:
-                totals["dead_instructions"] += 1
+            has_side_effect = ins.op not in PURE_OPS
+
+            if dsts and all(dst not in live for dst in dsts) and not has_side_effect:
+                removed += 1
                 continue
-            for dst in dsts:
-                if isinstance(dst, str): live.discard(dst)
+
+            live.difference_update(dst for dst in dsts if isinstance(dst, str))
             live.update(uses)
             kept.append(ins)
         block.instructions = list(reversed(kept))
-    _refresh_cfg_edges(blocks)
+
+    return removed
+
+
+def _optimization_shape(blocks: list[BasicBlock]) -> tuple:
+    """Return the parts of the CFG that optimization is allowed to change."""
+    return tuple(
+        (block.name, tuple(
+            (ins.op, ins.dst, repr(ins.args), ins.label)
+            for ins in block.instructions
+        ))
+        for block in blocks
+    )
+
+
+def optimize_cfg(blocks: list[BasicBlock], **options) -> dict[str, int]:
+    """Optimize blocks and CFG until stable, with optional global dead-code elimination."""
+    totals = {
+        "constant_folds": 0,
+        "algebraic_simplifications": 0,
+        "dead_instructions": 0,
+        "cse_replacements": 0,
+        "unreachable_blocks": 0,
+    }
+    options = dict(options)
+    do_dce = options.pop("dce", True)
+
+    while blocks:
+        before = _optimization_shape(blocks)
+
+        for block in blocks:
+            stats = optimize_block(block, **options)
+            for key, value in stats.items():
+                totals[key] += value
+
+        totals["unreachable_blocks"] += _remove_unreachable_blocks(blocks)
+        if do_dce:
+            totals["dead_instructions"] += _eliminate_dead_code(blocks)
+            _refresh_cfg_edges(blocks)
+
+        if _optimization_shape(blocks) == before:
+            break
+
     return totals
 
 
