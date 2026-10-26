@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import fields, is_dataclass
 from pathlib import Path
 from typing import Any
@@ -485,7 +486,6 @@ def run_semantic_tests() -> list[dict[str, Any]]:
         output.append(item)
     return output
 
-
 def main() -> int:
     cli = argparse.ArgumentParser(description="Funny HW3 semantic analysis")
     cli.add_argument("source", nargs="?", help="path to a .funny source file; if omitted, run tests")
@@ -499,6 +499,20 @@ def main() -> int:
             result = SemanticAnalyzer().analyze(program)
         except Exception as exc:
             result = {"status": "FAIL", "errors": [{"code": "PARSE_ERROR", "message": str(exc)}]}
+
+        errors = result.get("errors") or []
+        if errors:
+            print(f"Semantic analysis FAILED: {len(errors)} error(s)", file=sys.stderr)
+            for err in errors:
+                code = err.get("code", "ERROR")
+                message = err.get("message", "")
+                if "line" in err and "column" in err:
+                    pos = f"{err['line']}:{err['column']}: "
+                else:
+                    pos = ""
+                print(f"{pos}{code}: {message}", file=sys.stderr)
+            return 1
+
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0 if result.get("status") == "PASS" else 1
 
