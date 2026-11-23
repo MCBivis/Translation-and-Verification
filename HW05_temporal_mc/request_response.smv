@@ -1,0 +1,45 @@
+-- HW05: Request-Response protocol
+-- NuSMV model based on the transition system from P09.
+-- Finite model: one request cycle; the request state may repeat forever.
+
+MODULE main
+
+VAR
+    state : {idle, req, ack, error_state};
+
+DEFINE
+    request := (state = req);
+    response := (state = ack);
+    waiting := (state = idle);
+    error := (state = error_state);
+
+ASSIGN
+    init(state) := idle;
+
+    next(state) :=
+        case
+            state = idle       : req;
+            state = req        : {req, ack};
+            state = ack        : idle;
+            state = error_state: error_state;
+        esac;
+
+-- SAFETY 1: request and response are never active simultaneously.
+CTLSPEC AG !(request & response)
+
+-- SAFETY 2: after a response, the next state is idle.
+CTLSPEC AG (response -> AX waiting)
+
+-- SAFETY 3: from idle, the next state is a request.
+CTLSPEC AG (waiting -> AX request)
+
+-- SAFETY 4: the error state, if entered, is absorbing.
+CTLSPEC AG (error -> AX error)
+
+-- LIVENESS 1: every request is eventually answered.
+-- This is FALSE because req -> req can repeat forever.
+CTLSPEC AG (request -> AF response)
+
+-- LIVENESS / REACHABILITY 2: there exists a path to a response.
+-- This is TRUE: idle -> req -> ack.
+CTLSPEC EF response
